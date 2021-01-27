@@ -1,0 +1,448 @@
+<resources>
+    <string name="app_name">Us</string>
+
+    <string name="server_ip">192.168.56.1</string>
+    <!--        <string name="server_url">"13.125.205.208"</string>-->
+
+    <string-array name="spinner_category">
+        <item>파오캐</item>
+        <item>카오스</item>
+        <item>원랜디</item>
+        <item>뿔레전쟁</item>
+        <item>기타</item>
+    </string-array>
+
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="underlined_text">
+        <u>보기</u>
+    </string>
+    <!--    서비스 이용약관-->
+    <string name="app_service">
+        제 1 장 총 칙
+
+        제 1 조 (목적)
+        이 약관은 (어스 서비스) (‘https://usmetaverse.com’이하 ‘어스’) 에서 제공하는 인터넷서비스(이하 "서비스"라 합니다)의 이용 조건 및 절차에 관한 기본적인 사항을 규정함을
+        목적으로 합니다.
+
+        제 2 조 (약관의 효력 및 변경)
+        ① 이 약관은 서비스 화면이나 기타의 방법으로 이용고객에게 공지함으로써 효력을 발생합니다.
+        ② 사이트는 이 약관의 내용을 변경할 수 있으며, 변경된 약관은 제1항과 같은 방법으로 공지 또는 통지함으로써 효력을 발생합니다.
+
+        제 3 조 (용어의 정의)
+        이 약관에서 사용하는 용어의 정의는 다음과 같습니다.
+        ① 회원 : 어스와 서비스 이용계약을 체결하거나 이용자 아이디(ID)를 부여받은 개인 또는 단체를 말합니다.
+        ② 신청자 : 회원가입을 신청하는 개인 또는 단체를 말합니다.
+        ③ 아이디(ID) : 회원의 식별과 서비스 이용을 위하여 회원이 정하고 사이트가 승인하는 이메일을 말합니다.
+        ④ 비밀번호 : 회원이 부여 받은 아이디(ID)와 일치된 회원임을 확인하고, 회원 자신의 비밀을 보호하기 위하여 회원이 정한 문자와 숫자의 조합을 말합니다.
+        ⑤ 해지 : 사이트 또는 회원이 서비스 이용계약을 취소하는 것을 말합니다.
+
+        제 2 장 서비스 이용계약
+
+        제 4 조 (이용계약의 성립)
+        ① 이용약관 하단의 동의 버튼을 누르면 이 약관에 동의하는 것으로 간주됩니다.
+        ② 이용계약은 서비스 이용희망자의 이용약관 동의 후 이용 신청에 대하여 사이트가 승낙함으로써 성립합니다.
+
+        제 5 조 (이용신청)
+        ① 신청자가 본 서비스를 이용하기 위해서는 사이트 소정의 가입신청 양식에서 요구하는 이용자 정보를 기록하여 제출해야 합니다.
+        ② 가입신청 양식에 기재하는 모든 이용자 정보는 모두 실제 데이터인 것으로 간주됩니다. 실제 정보를 입력하지 않은 사용자는 법적인 보호를 받을 수 없으며, 서비스의 제한을 받을 수 있습니다.
+
+        제 6 조 (이용신청의 승낙)
+        ① 사이트는 신청자에 대하여 제2항, 제3항의 경우를 예외로 하여 서비스 이용신청을 승낙합니다.
+        ② 사이트는 다음에 해당하는 경우에 그 신청에 대한 승낙 제한사유가 해소될 때까지 승낙을 유보할 수 있습니다.
+        가. 서비스 관련 설비에 여유가 없는 경우
+        나. 기술상 지장이 있는 경우
+        다. 기타 어스가 필요하다고 인정되는 경우
+        ③ 사이트는 신청자가 다음에 해당하는 경우에는 승낙을 거부할 수 있습니다.
+        가. 다른 개인(사이트)의 명의를 사용하여 신청한 경우
+        나. 이용자 정보를 허위로 기재하여 신청한 경우
+        다. 사회의 안녕질서 또는 미풍양속을 저해할 목적으로 신청한 경우
+        라. 기타 어스 소정의 이용신청요건을 충족하지 못하는 경우
+
+        제 7 조 (이용자정보의 변경)
+        회원은 이용 신청시에 기재했던 회원정보가 변경되었을 경우에는, 온라인으로 수정하여야 하며 변경하지 않음으로 인하여 발생되는 모든 문제의 책임은 회원에게 있습니다.
+
+        제 3 장 계약 당사자의 의무
+
+        제 8 조 (사이트의 의무)
+        ① 채팅 및 소셜 플랫폼을 제공합니다. 본 서비스로 공개 및 비공개 대화방에 참여할 수 있으며, 본 서비스의 다른 사용자들과 소통할 수 있는 메시지 기능을 이용하실 수 있습니다. 또한, 해당 서비스를
+        이용하여 당사로부터 구매하여 이용 가능한 특정 소프트웨어나 기타 콘텐츠를 이용할 수 있습니다. 본 약관을 준수하는 한, 당사는 귀하가 본 서비스를 사용하고 액세스할 수 있는 제한적, 취소 가능한, 비
+        배타적, 양도 불능한, 재사용 허가 불능한 라이센스를 부여합니다.
+        가. 약관이 직접적으로 언급하여 허용하는 목적 이외의 목적으로 이용하지 않는 것
+        나. 약관이 허용하는 경우를 제외하고 서비스의 일부나 전체를 복제, 조정, 변형, 파생물 창작, 배포, 라이선싱, 판매, 이양, 공개적 전시, 공개적 시연, 전송, 스트리밍, 방송, 소스 코드 파해
+        시도, 역설계, 디컴파일, 분해 등 어떠한 방법으로도 부당하게 이용할 수 없다는 것
+        다. 서비스에 데이터 마이닝, 로봇, 스파이더 또는 그와 비슷한 데이터 수집 및 추출 툴을 사용하지 않는 것과 이를 시도하지 않는 것에 동의하게 됩니다. 본 약관에 명시적으로 부여된 권한 및 권리를
+        제외하고, 묵시적으로 혹은 당사 또는 라이센스가 소유하거나 관리하는 지적재산권에 의해 귀하에게 라이센스 또는 권리가 부여되지 않습니다.
+
+        ② 사이트는 서비스 제공과 관련하여 취득한 회원의 개인정보를 회원의 동의없이 타인에게 누설, 공개 또는 배포할 수 없으며, 서비스관련 업무 이외의 상업적 목적으로 사용할 수 없습니다. 단, 다음 각
+        호의 1에 해당하는 경우는 예외입니다.
+        가. 전기통신기본법 등 법률의 규정에 의해 국가기관의 요구가 있는 경우
+        나. 범죄에 대한 수사상의 목적이 있거나 정보통신윤리 위원회의 요청이 있는 경우
+        다. 기타 관계법령에서 정한 절차에 따른 요청이 있는 경우
+        ③ 사이트는 이 약관에서 정한 바에 따라 지속적, 안정적으로 서비스를 제공할 의무가 있습니다.
+        ④ 당사는 해당 서비스의 일부나 전체를 아무런 공지 없이 임시적으로나 영구적으로 변형하거나 중단할 수 있는 권리를 가집니다. 당사는 본 약관의 위반을 포함한(단, 이에 국한되지 않음) 모든 이유로 사전
+        통보 없이 본 서비스에 대한 모든 사용자의 액세스를 거부할 권리가 있습니다. 귀하가 본 약관을 위반할 경우, 당사는 위반에 대해 경고하거나 본 서비스 사용 시 생성한 모든 계정을 즉시 해지 또는 정지할
+        수 있는 권리가 있습니다. 귀하는 계정을 해지 또는 정지하기 전에 당사가 통보할 의무는 없지만 통보할 수도 있다는 점에 동의합니다.
+
+        제 9 조 (회원의 의무)
+        ① 회원은 서비스 이용 시 다음 각 호의 행위를 하지 않아야 합니다.
+        가. 다른 회원의 ID를 부정하게 사용하는 행위
+        나. 서비스에서 얻은 정보를 사이트의 사전승낙 없이 회원의 이용 이외의 목적으로 복제하거나 이를 변경, 출판 및 방송 등에 사용하거나 타인에게 제공하는 행위
+        다. 사이트의 저작권, 타인의 저작권 등 기타 권리를 침해하는 행위
+        라. 공공질서 및 미풍양속에 위반되는 내용의 정보, 문장, 도형 등을 타인에게 유포하는 행위
+        마. 범죄와 결부된다고 객관적으로 판단되는 행위
+        바. 기타 관계법령에 위배되는 행위
+        ② 회원은 관계법령, 이 약관에서 규정하는 사항, 서비스 이용 안내 및 주의 사항을 준수하여야 합니다.
+        ③ 회원은 내용별로 사이트가 서비스 공지사항에 게시하거나 별도로 공지한 이용 제한 사항을 준수하여야 합니다.
+        사. 서비스 운영이나 다른 사용자의 컴퓨터를 해칠 수 있는 바이러스, 트로이 목마, 웜, 시한폭탄, 캔슬봇, 훼손된 파일 및 데이터, 또는 기타 유사한 소프트웨어나 프로그램이 포함된 파일을 게시 및
+        전송하거나(혹은 이를 시도하는 행위) 유사한 활동에 참여하는 행위
+        이러한 사용 규칙은 완전함을 의미하지는 않으며, 당사는 약관, 커뮤니티 지침의 침해 및 서비스의 부적절한 사용으로 판단되는 행위에 관해 결정할 수 있는 권리를 보유하며 귀하의 계정 해지 및 서비스에
+        추가 참여를 배제하는 조치를 포함해 조치를 취할 수 있는 권리가 있습니다.
+
+        제 4 장 서비스 제공 및 이용
+
+        제 10 조 (회원 아이디(ID)와 비밀번호 관리에 대한 회원의 의무)
+        ① 아이디(ID)와 비밀번호에 대한 모든 관리는 회원에게 책임이 있습니다. 회원에게 부여된 아이디(ID)와 비밀번호의 관리소홀, 부정사용에 의하여 발생하는 모든 결과에 대한 전적인 책임은 회원에게
+        있습니다.
+        ② 자신의 아이디(ID)가 부정하게 사용된 경우 또는 기타 보안 위반에 대하여, 회원은 반드시 사이트에 그 사실을 통보해야 합니다.
+
+        제 11 조 (서비스 제한 및 정지)
+        ① 사이트는 전시, 사변, 천재지변 또는 이에 준하는 국가비상사태가 발생하거나 발생할 우려가 있는 경우와 전기통신사업법에 의한 기간통신 사업자가 전기통신서비스를 중지하는 등 기타 불가항력적 사유가 있는
+        경우에는 서비스의 전부 또는 일부를 제한하거나 정지할 수 있습니다.
+        ② 사이트는 제1항의 규정에 의하여 서비스의 이용을 제한하거나 정지할 때에는 그 사유 및 제한기간 등을 지체없이 회원에게 알려야 합니다.
+
+        제5장 계약사항의 변경, 해지
+
+        제 12 조 (정보의 변경)
+        회원이 전화번호, 비밀번호 등 고객정보를 변경하고자 하는 경우에는 홈페이지의 회원정보 변경 서비스를 이용하여 변경할 수 있습니다.
+
+        제 13 조 (계약사항의 해지)
+        회원은 서비스 이용계약을 해지할 수 있으며, 해지할 경우에는 본인이 직접 서비스를 통하거나 전화 또는 온라인 등으로 사이트에 해지신청을 하여야 합니다. 사이트는 해지신청이 접수된 당일부터 해당 회원의
+        서비스 이용을 제한합니다. 사이트는 회원이 다음 각 항의 1에 해당하여 이용계약을 해지하고자 할 경우에는 해지조치 7일전까지 그 뜻을 이용고객에게 통지하여 소명할 기회를 주어야 합니다.
+        ① 이용고객이 이용제한 규정을 위반하거나 그 이용제한 기간 내에 제한 사유를 해소하지 않는 경우
+        ② 정보통신윤리위원회가 이용해지를 요구한 경우
+        ③ 이용고객이 정당한 사유 없이 의견진술에 응하지 아니한 경우
+        ④ 타인 명의로 신청을 하였거나 신청서 내용의 허위 기재 또는 허위서류를 첨부하여 이용계약을 체결한 경우
+        사이트는 상기 규정에 의하여 해지된 이용고객에 대해서는 별도로 정한 기간동안 가입을 제한할 수 있습니다.
+
+        제6장 손해배상
+
+        제 14 조 (면책조항)
+        ① 사이트는 회원이 서비스 제공으로부터 기대되는 이익을 얻지 못하였거나 서비스 자료에 대한 취사선택 또는 이용으로 발생하는 손해 등에 대해서는 책임이 면제됩니다.
+        ② 사이트는 회원의 귀책사유나 제3자의 고의로 인하여 서비스에 장애가 발생하거나 회원의 데이터가 훼손된 경우에 책임이 면제됩니다.
+        ③ 사이트는 회원이 게시 또는 전송한 자료의 내용에 대해서는 책임이 면제됩니다.
+        ④ 상표권이 있는 도메인의 경우, 이로 인해 발생할 수도 있는 손해나 배상에 대한 책임은 구매한 회원 당사자에게 있으며, 사이트는 이에 대한 일체의 책임을 지지 않습니다.
+
+        제 15 조 (관할법원)
+
+        서비스와 관련하여 사이트와 회원간에 분쟁이 발생할 경우 사이트의 본사 소재지를 관할하는 법원을 관할법원으로 합니다.
+
+        제 16조 (저작권 보호)
+
+        ①저작권 위반. 당사는 타인의 지적재산권을 존중하며, 당사의 사용자도 이를 존중할 것을 요청합니다. 귀하의 저작물이 저작권 침해되어 복제되었거나 귀하의 지적재산권이 위반되었다고 생각되는 경우, 아래에
+        명시된 절차에 따라 귀하의 피해 사실에 대해 당사에 알려야 합니다. 당사는 침해 혐의에 대한 통지를 처리하고 조사할 것이며, 모든 혐의 또는 실제 침해에 관련하여 디지털 밀레니엄 저작권법(이하,
+        "DMCA") 및 기타 지적재산권법에 따라 적절한 조치를 취할 것입니다. 서면으로 작성되어 다음과 같은 정보를 포함하여야 합니다.
+        가.저작권 또는 기타 지적재산권 소유자를 대리하는 사람의 전자 또는 물리적 서명.
+        나.귀하가 침해받았다고 주장하는 저작물 또는 기타 지적재산권에 대한 설명.
+        다.귀하가 주장하는 저작권이 침해된 자료의 본 서비스 내 위치에 대한 설명과 당사가 서비스 내에서 이를 찾을 수 있는 자세한 세부 정보.
+        라.귀하의 주소, 전화번호 및 이메일 주소.
+        마.분쟁이 된 사용이 저작권 또는 지적재산권 소유자, 이의 대리인 또는 해당 법률에 따라 승인되지 않았음에 대해 확신하는 귀하의 진술.
+        바.위증 시 처벌을 받으며, 귀하의 통지에 있는 위의 정보가 정확하며, 귀하가 해당 저작권 및 지적재산권의 소유자이며 또는 해당 저작권 및 지적재산권의 소유자의 대리인임을 나타내는 귀하의 진술.
+
+        ②저작권 담당자가 이의 제기를 받았을 경우, 당사는 이의 제기서의 사본을 원래 침해 주장을 한 당사자에게 보내며, 해당 당사자에게 10영업일 이내로 삭제된 콘텐츠가 대체되거나 액세스 금지가 중단될 수
+        있음을 통보합니다. 저작권 소유자가 콘텐츠 제공자, 회원 또는 사용자에 대하여 법원 명령을 요구하는 조치를 취하지 않는 한, 당사의 자유재량으로 이의 제기 수령 후 10~14영업일 이내에 삭제된
+        콘텐츠는 대체되거나 복구되어 액세스할 수 있습니다.
+
+        [부칙]
+
+        (시행일) 이 약관은 2021년 01월 1일 부터 시행합니다.
+
+    </string>
+    <!--    위치정보-->
+    <string name="app_location">
+        위치정보서비스 및 위치기반서비스 이용약관\n"
+        "다음은 구글코리아 유한회사(이하 “Google”)가 Google의 제품에 대하여 제공하고 있는 위치기반서비스에 적용되는 이용조건입니다. 아래 이용조건은 이동통신사업자의 가입신청서에 포함된 위치정보
+        수집동의 및 모바일 단말기 이용조건과 함께 적용됩니다.\n"
+        "\n"
+        "서비스의 요금\n"
+        "\n"
+        "Google은 별도의 특별한 정함이 없는 한, Google의 위치기반서비스를 이용자에게 추가 이용 요금 없이 제공합니다. 별도의 요금을 부과하고자 하는 경우, Google은 이용자에게 사전에 요금 및
+        이용조건을 고지하고 동의를 받습니다. Google의 위치기반서비스는 Wi-Fi 무선인터넷을 사용하지 않고, 가입하신 이동통신사의 무선인터넷(3G 또는 Wibro 등)에 연결하여 사용하는 경우 별도의
+        무선 데이터 통화료가 부과됩니다. 무선 인터넷 사용료에 대한 자세한 안내는 가입하신 이동통신사에 문의하시기 바랍니다. 제3자 개발자들에 의하여 제공되는 프로덕트나 서비스의 경우, 해당 제3자 개발자들의
+        이용약관에 따른 서비스 요금을 제3자 개발자들이 부과할 수 있습니다.\n"
+        "\n"
+        "서비스의 내용\n"
+        "\n"
+        "단말기 등의 위치를 토대로 위치나 경로를 보여주거나 찾을 수 있도록 하는 서비스 및 이를 기반으로 제공되는 응용 서비스 (이러한 위치와 경로를 전송, 공유, 저장, 게시할 수 있도록 하는 등의 기능
+        포함)\n"
+        "이용자의 위치나 경로를 이용한 검색∙콘텐츠 표시 서비스 및 이를 기반으로 한 응용서비스 (위치기반 검색어를 제안∙완성하거나, 위치나 경로를 토대로 한 검색결과, 광고, 게시물, 콘텐츠 기타 정보를
+        제공∙표시하는 등의 기능 포함)\n"
+        "게시물, 콘텐츠 기타 정보를 위치나 경로와 연결하여 생성, 전송, 저장, 정리, 제안, 게시, 기타 처리하거나, 이를 검색, 분류, 공유할 수 있도록 하는 등의 서비스 및 이를 기반으로 하는
+        응용서비스\n"
+        "주변 사람이나 사물의 근접을 탐지하여, 사람이나 사물간의 정보 전송, 공유 또는 위치 확인 등 다양한 기능을 가능케 하는 서비스 및 이를 기반으로 하는 응용서비스\n"
+        "단말기 등의 위치나 경로를 바탕으로 운동위치∙경로, 운동량 등 운동정보를 계산하거나 표시∙저장하고, 이용자가 이를 게시∙전송∙공유하거나 다른 콘텐츠 및 기타 정보와 연결할 수 있도록 하는 서비스 및
+        이를 기반으로 하는 응용서비스\n"
+        "이용자가 설정해 둔 위치에서 알림, 메시지, 기타 콘텐츠 게시 등 일정한 기능이 작동하도록 하는 서비스 및 이를 기반으로 한 응용서비스\n"
+        "기타 Google 또는 외부 개발자들이 개발한 위치기반 서비스\n"
+        "Google은 위치기반서비스의 세부적인 내용 및 종류에 대하여는 개별 이용약관을 정할 수 있으며, 이용자에게 해당 이용약관의 사본을 제공하고 해당 약관에 정한 바에 따라 동의를 받습니다. 외부개발자가
+        제공하는 프로덕트 및 서비스에 대하여는 해당 외부개발자의 이용약관을 따릅니다.\n"
+        "\n"
+        "위치정보\n"
+        "\n"
+        "GPS기능이 탑재되었거나, Wi-Fi 기능이 탑재된 단말기 또는 Cell ID에 기반한 단말기 등을 비롯하여 위치정보수집기능이 부가된 Google 또는 제휴사의 제품은 주기적으로 이동통신 및
+        Wi-Fi 기지국에 대한 위치정보를 수집합니다. 이러한 정보는, 나중에 Google Account 또는 다른 개인정보와 결합되어 위치기반서비스에 이용되지 않는 한, 익명의 정보로 전화번호 등 이용자를
+        식별할 수 있는 정보를 포함하지 않습니다. 일부 서비스의 경우, 주기적으로 단말기를 통해 수집된 위치정보가 Google의 서버로 전송되어 Google의 위치정보의 정확도를 향상시키는데 사용됩니다.\n"
+        "\n"
+        "이용자의 권리\n"
+        "\n"
+        "Google은 https://policies.google.com/ 에서 볼 수 있는 개인정보취급방침에 정해진 바에 따라 위치정보를 수집, 이용 및 공유합니다. 이용자는 직접 위치기반서비스의 설정을
+        변경하는 방식을 활용하여, 위치정보의 이용제공목적, 제공받는 자의 범위 및 위치기반서비스의 일부에 대하여 동의를 유보할 수 있습니다. 또한, 이용자는 직접 단말기의 환경설정을 변경하는 방식을 통하여
+        언제든지 위치정보 이용제공에 대한 동의의 전부 또는 일부를 철회할 수 있습니다.\n"
+        "\n"
+        "Google은 이용자의 동의 없이 위치정보를 제3자에게 제공하지 않습니다. 만약 위치정보의 보호 및 이용 등에 관한 법률(“위치정보법”) 또는 다른 한국의 법률에 의하여 위치정보를 제3자에게 제공하게
+        된다면, 한국의 관련 법률에 정한 바에 따라, 이용자에게 즉시 알려드립니다. 이용자는 위치정보법 또는 다른 한국의 법률에서 허용하는 바에 따라, 제3자에게 제공된 이유 및 내용에 대하여 열람, 고지,
+        오류 정정을 요구할 수 있습니다.\n"
+        "\n"
+        "Google Account에 로그인이 필요한 일부 위치기반서비스와 관련하여, 이용자가 본 이용약관에 동의함으로써, 이용자는 만 14세 이상이라는 점에 대하여 Google에 대하여 확인하여 주고
+        보증하는 것으로 봅니다.\n"
+        "\n"
+        "Google은 이용자가 요청하는 경우, 지체 없이 수집된 개인위치정보 및 그러한 개인위치정보와 연관된 관련 이용기록을 파기하기 위한 조치를 취합니다.\n"
+        "\n"
+        "위치정보 이용∙제공사실 확인자료의 보유\n"
+        "\n"
+        "Google은 이용자에 대한 위치정보의 이용∙제공사실을 위치정보시스템에 자동으로 기록, 보존하며, 6개월 이상 보관합니다. 이용자가 개인위치정보의 이용 또는 제공에 대한 동의를 전부 또는 일부 철회한
+        경우에는 법률에 따라 보존해야 하는 경우를 제외하고 지체 없이 위치정보 이용∙제공과 관련한 데이터(동의의 일부 철회의 경우에는 철회와 관련된 부분)를 파기합니다.\n"
+        "\n"
+        "법률준수\n"
+        "\n"
+        "이용자는 Google의 위치정보사업 및 위치기반서비스제공과 관련하여 위치정보법 제15조 내지 제26조의 규정을 위반한 행위로 손해를 입은 경우에 위치정보법 제27조에 따라 손해배상을 청구할 수
+        있습니다.\n"
+        "\n"
+        "사업자 정보 및 위치정보관리책임자\n"
+        "\n"
+        "위기반서비스와 관련하여 문제사항이 있을 경우에는 아래 구글코리아 유한회사로 연락주시기 바랍니다.\n" +
+        "\n"
+        "구글코리아 유한회사\n"
+        "주소: 서울 강남구 테헤란로 152, 22층 (역삼동, 강남파이낸스센터)\n"
+        "전화번호: (02) 531-9000
+    </string>
+    <!--개인정보 보호-->
+    <string name="app_privacy">
+        "1. 개인정보의 처리 목적 (어스 서비스)(‘https://usmetaverse.com’이하 ‘어스’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지
+        않습니다.
+
+        - 고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등
+
+        2. 개인정보의 처리 및 보유 기간
+
+        ① (어스 서비스)(‘https://usmetaverse.com’이하 ‘어스’) 은(는) 정보주체로부터 개인정보를 수집할 때 동의 받은 개인정보 보유․이용기간 또는 법령에 따른 개인정보 보유․이용기간
+        내에서 개인정보를 처리․보유합니다.
+
+        ② 구체적인 개인정보 처리 및 보유 기간은 다음과 같습니다.
+
+        ☞ 아래 예시를 참고하여 개인정보 처리업무와 개인정보 처리업무에 대한 보유기간 및 관련 법령, 근거 등을 기재합니다.
+
+        (예시)- 고객 가입 및 관리 : 서비스 이용계약 또는 회원가입 해지시까지, 다만 채권․채무관계 잔존시에는 해당 채권․채무관계 정산시까지
+
+        - 전자상거래에서의 계약․청약철회, 대금결제, 재화 등 공급기록 : 5년
+
+
+        3. 개인정보의 제3자 제공에 관한 사항
+
+        ① (어스 서비스)('https://usmetaverse.com'이하 '어스')은(는) 정보주체의 동의, 법률의 특별한 규정 등 개인정보 보호법 제17조 및 제18조에 해당하는 경우에만 개인정보를
+        제3자에게 제공합니다.
+
+        ② (어스 서비스)('https://usmetaverse.com')은(는) 다음과 같이 개인정보를 제3자에게 제공하고 있습니다.
+
+        개인정보를 제공받는 자 : 신준형
+        제공받는 자의 개인정보 이용목적 : 이메일, 휴대전화번호, 비밀번호, 생년월일, 서비스 이용 기록, 접속 로그, 쿠키, 접속 IP 정보, 결제기록
+        제공받는 자의 보유.이용기간: 지체없이 파기
+
+
+        4. 개인정보처리 위탁
+
+        ① (어스 서비스)('어스')은(는) 원활한 개인정보 업무처리를 위하여 다음과 같이 개인정보 처리업무를 위탁하고 있습니다.
+        위탁하는 업무의 내용 : 구매 및 요금 결제, 본인인증(금융거래, 금융서비스), 회원제 서비스 이용에 따른 본인확인, 신규 서비스(제품) 개발 및 맞춤 서비스 제공, 이벤트 및 광고성 정보 제공 및
+        참여기회 제공
+        위탁기간 : 지체없이 파기
+        ② (어스 서비스)('https://usmetaverse.com'이하 '어스')은(는) 위탁계약 체결시 개인정보 보호법 제25조에 따라 위탁업무 수행목적 외 개인정보 처리금지, 기술적․관리적 보호조치,
+        재위탁 제한, 수탁자에 대한 관리․감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.
+
+        ③ 위탁업무의 내용이나 수탁자가 변경될 경우에는 지체없이 본 개인정보 처리방침을 통하여 공개하도록 하겠습니다.
+
+        5. 정보주체와 법정대리인의 권리·의무 및 그 행사방법 이용자는 개인정보주체로써 다음과 같은 권리를 행사할 수 있습니다.
+
+        ① 정보주체는 어스 서비스(‘https://usmetaverse.com’이하 ‘어스) 에 대해 언제든지 다음 각 호의 개인정보 보호 관련 권리를 행사할 수 있습니다.
+
+        1. 개인정보 열람요구
+
+        2. 오류 등이 있을 경우 정정 요구
+
+        3. 삭제요구
+
+        4. 처리정지 요구
+
+
+        6. 처리하는 개인정보의 항목 작성
+
+        ① (어스 서비스)('https://usmetaverse.com'이하 '어스')은(는) 다음의 개인정보 항목을 처리하고 있습니다.
+
+        1 당사는 귀하의 정보를 판매하지 않습니다. 당사는 귀하와의 관계에서 본 정보가 중요한 부분이라 생각합니다. 하지만 아래에 명시된 바와 같이 귀하의 정보를 특정 제삼자와 공유하는 특정 상황이 있습니다.
+        * 사업의 양도 * 동의 * 관련기업 * 개발자 * 대리인 * 컨설턴트 관계자 * 법적 요구사항 * 통합 또는 식별할 수 없는 데이터>
+        필수항목 : 이메일, 휴대전화번호, 비밀번호, 로그인ID, 서비스 이용 기록, 접속 로그, 쿠키, 접속 IP 정보, 결제기록
+        - 선택항목 :
+
+
+        7. 개인정보의 파기(어스 서비스)('어스')은(는) 원칙적으로 개인정보 처리목적이 달성된 경우에는 지체없이 해당 개인정보를 파기합니다. 파기의 절차, 기한 및 방법은 다음과 같습니다.
+
+        -파기절차
+        이용자가 입력한 정보는 목적 달성 후 별도의 DB에 옮겨져(종이의 경우 별도의 서류) 내부 방침 및 기타 관련 법령에 따라 일정기간 저장된 후 혹은 즉시 파기됩니다. 이 때, DB로 옮겨진 개인정보는
+        법률에 의한 경우가 아니고서는 다른 목적으로 이용되지 않습니다.
+
+        -파기기한
+        이용자의 개인정보는 개인정보의 보유기간이 경과된 경우에는 보유기간의 종료일로부터 5일 이내에, 개인정보의 처리 목적 달성, 해당 서비스의 폐지, 사업의 종료 등 그 개인정보가 불필요하게 되었을 때에는
+        개인정보의 처리가 불필요한 것으로 인정되는 날로부터 5일 이내에 그 개인정보를 파기합니다.
+
+
+        8. 개인정보 자동 수집 장치의 설치•운영 및 거부에 관한 사항
+
+        ① 어스 서비스 은 개별적인 맞춤서비스를 제공하기 위해 이용정보를 저장하고 수시로 불러오는 ‘쿠기(cookie)’를 사용합니다. ② 쿠키는 웹사이트를 운영하는데 이용되는 서버(http)가 이용자의
+        컴퓨터 브라우저에게 보내는 소량의 정보이며 이용자들의 PC 컴퓨터내의 하드디스크에 저장되기도 합니다. 가. 쿠키의 사용 목적 : 이용자가 방문한 각 서비스와 웹 사이트들에 대한 방문 및 이용형태, 인기
+        검색어, 보안접속 여부, 등을 파악하여 이용자에게 최적화된 정보 제공을 위해 사용됩니다. 나. 쿠키의 설치•운영 및 거부 : 웹브라우저 상단의 도구>인터넷 옵션>개인정보 메뉴의 옵션 설정을 통해 쿠키
+        저장을 거부 할 수 있습니다. 다. 쿠키 저장을 거부할 경우 맞춤형 서비스 이용에 어려움이 발생할 수 있습니다.
+
+        9. 개인정보 보호책임자 작성
+
+        ① 어스 서비스(‘https://usmetaverse.com’이하 ‘어스) 은(는) 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여
+        아래와 같이 개인정보 보호책임자를 지정하고 있습니다.
+
+        ▶ 개인정보 보호책임자
+        성명 :신준형
+        연락처 :010-4642-1476, dnfxmfk14@naver.com
+
+        ▶ 개인정보 보호 담당자
+        담당자 :신준형
+        연락처 :010-4642-1476, dnfxmfk14@naver.com
+        ② 정보주체께서는 어스 서비스(‘https://usmetaverse.com’이하 ‘어스) 의 서비스(또는 사업)을 이용하시면서 발생한 모든 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한
+        사항을 개인정보 보호책임자 및 담당부서로 문의하실 수 있습니다. 어스 서비스(‘https://usmetaverse.com’이하 ‘어스) 은(는) 정보주체의 문의에 대해 지체 없이 답변 및 처리해드릴
+        것입니다.
+
+        10. 개인정보 처리방침 변경
+
+        ①이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여 고지할 것입니다.
+
+        11. 개인정보의 안전성 확보 조치 (어스 서비스)('어스')은(는) 개인정보보호법 제29조에 따라 다음과 같이 안전성 확보에 필요한 기술적/관리적 및 물리적 조치를 하고 있습니다.
+
+        1. 개인정보 취급 직원의 최소화 및 교육
+        개인정보를 취급하는 직원을 지정하고 담당자에 한정시켜 최소화 하여 개인정보를 관리하는 대책을 시행하고 있습니다.
+
+        2. 개인정보의 암호화
+        이용자의 개인정보는 비밀번호는 암호화 되어 저장 및 관리되고 있어, 본인만이 알 수 있으며 중요한 데이터는 파일 및 전송 데이터를 암호화 하거나 파일 잠금 기능을 사용하는 등의 별도 보안기능을 사용하고
+        있습니다.
+
+        3. 개인정보에 대한 접근 제한
+        개인정보를 처리하는 데이터베이스시스템에 대한 접근권한의 부여,변경,말소를 통하여 개인정보에 대한 접근통제를 위하여 필요한 조치를 하고 있으며 침입차단시스템을 이용하여 외부로부터의 무단 접근을 통제하고
+        있습니다.
+        "
+    </string>
+    <string name="large_text">
+
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
