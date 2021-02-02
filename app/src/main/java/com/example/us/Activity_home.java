@@ -17,6 +17,8 @@ import java.util.Map;
 
 public class Activity_home extends AppCompatActivity {
 
+    private static final String TAG = "Activity_home";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,12 @@ public class Activity_home extends AppCompatActivity {
         login_user_info.setUser_ID("test_id");
         login_user_info.setUser_name("test_name");
         login_user_info.setUser_intro_profile("test_intro");
+        login_user_info.setUser_index_number(10);
+
+        System.out.println(TAG+"test_id : "+"test_id");
+        System.out.println(TAG+"test_id : "+"test_name");
+        System.out.println(TAG+"test_id : "+"test_intro");
+        System.out.println(TAG+"test_id : "+"index_number : "+user_info.getInstance().getUser_index_number());
 
         Button btn_test_imgupload = findViewById(R.id.btn_test_imgupload);
         btn_test_imgupload.setOnClickListener(new View.OnClickListener() {

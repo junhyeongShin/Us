@@ -14,9 +14,27 @@ import org.json.JSONObject;
 
 public class Activity_edit_userdata extends AppCompatActivity {
 
+    private static final String TAG = "Activity_edit_userdata";
     String server_info_url = server_info.getInstance().getURL();
     String user_id = user_info.getInstance().getUser_ID();
     ImageView imageView_edit;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println(TAG+"onStop");
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        init();
+
+        System.out.println(TAG+"onResume");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +42,6 @@ public class Activity_edit_userdata extends AppCompatActivity {
         setContentView(R.layout.activity_edit_userdata);
 
         imageView_edit = findViewById(R.id.imageView_edit);
-
-        init();
 
         ImageButton ibtn_edit_back = findViewById(R.id.ibtn_edit_back);
         ibtn_edit_back.setOnClickListener(new View.OnClickListener() {
@@ -50,9 +66,12 @@ public class Activity_edit_userdata extends AppCompatActivity {
             public void onClick(View v) {
                 final EditText edittext_edit_new_pw = findViewById(R.id.edittext_edit_new_pw);
                 EditText edittext_edit_new_pw_check = findViewById(R.id.edittext_edit_new_pw_check);
+                EditText edittext_edit_old_pw =findViewById(R.id.edittext_edit_old_pw);
 
                 final String new_pw = edittext_edit_new_pw.getText().toString();
                 String new_pw_check = edittext_edit_new_pw_check.getText().toString();
+
+                final String old_pw = edittext_edit_old_pw.getText().toString();
 
                 // 기존 비밀번호도 일치하고, 새로운 비밀번호도 일치할때
                 if(new_pw.equals(new_pw_check)){
@@ -62,10 +81,17 @@ public class Activity_edit_userdata extends AppCompatActivity {
                     new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    post_to_server_update.post_data_id("/Data/user_pw_update .php",user_info.getInstance().getUser_ID(), "user_pw",new_pw);
-
+                                    post_to_server_update.post_data_id("/Data/user_pw_update.php",user_info.getInstance().getUser_ID(), "user_pw",new_pw);
                                 }
                             }).start();
+
+                    edittext_edit_new_pw_check.setText("");
+                    edittext_edit_new_pw.setText("");
+                    edittext_edit_old_pw.setText("");
+
+                    Toast.makeText(getApplicationContext(), "비밀번호가 변경 되었습니다.",Toast.LENGTH_SHORT).show();
+
+
 
                 }
                 // 예외처리 : 기존 비밀번호만 일치하고, 새로운 비밀번호는 일치하지 않을때
@@ -97,7 +123,11 @@ public class Activity_edit_userdata extends AppCompatActivity {
                 String user_intro = "";
                 String user_img_path = "";
 
+                //포스트로 데이터 요청.
                 String result_user_data = post_to_server.post_data_get_id("/Data/user_data_get.php",user_id);
+
+                System.out.println(TAG+"init : user_id : "+ user_id);
+
                 try {
                     JSONObject jsonObject = new JSONObject(result_user_data);
                     String result_user_data_decode =  jsonObject.getString("result_data");
@@ -105,14 +135,14 @@ public class Activity_edit_userdata extends AppCompatActivity {
                     user_name = jsonObject_decode.getString("username");
                     user_intro = jsonObject_decode.getString("intro_profile");
 
+                    TextView TextView_edit_id = findViewById(R.id.TextView_edit_id);
+                    TextView_edit_id.setText("ID : "+user_id);
 
+                    TextView TextView_edit_name = findViewById(R.id.TextView_edit_name);
+                    TextView_edit_name.setText("닉네임 : "+user_name);
 
-                    TextView TextView_edit_profile_name = findViewById(R.id.TextView_edit_profile_name);
-                    TextView_edit_profile_name.setText("닉네임 : "+user_name);
-
-
-                    TextView TextView_edit_profile_detail = findViewById(R.id.TextView_edit_profile_detail);
-                    TextView_edit_profile_detail.setText("소개 : "+user_intro);
+                    TextView TextView_edit_detail = findViewById(R.id.TextView_edit_detail);
+                    TextView_edit_detail.setText("소개 : "+user_intro);
 
                     String result_img_data_decode =  jsonObject.getString("result_img");
                     JSONObject jsonObject_img_decode = new JSONObject(result_img_data_decode);
@@ -131,10 +161,6 @@ public class Activity_edit_userdata extends AppCompatActivity {
 
             }
         }).start();
-
-
-        TextView TextView_edit_profile_id = findViewById(R.id.TextView_edit_profile_id);
-        TextView_edit_profile_id.setText("ID : "+user_id);
 
 
     }

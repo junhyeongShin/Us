@@ -1,35 +1,31 @@
 package com.example.us;
-import android.os.Handler;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
-import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
+import de.hdodenhof.circleimageview.CircleImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
 
 // 1. 이미지 변경버튼 클릭시 이미지 선택 창 startActivityForResult로 열어서 이미지 선택 (비트맵 형식)
 // 1-1. 이미지 선택시 imageView_edit_profile에 미리보기
@@ -44,7 +40,7 @@ public class Activity_edit_profile extends AppCompatActivity {
 
 
     private static final String TAG = "Activity_edit_profile";
-    ImageView imageView_edit_profile;
+    CircleImageView imageView_edit_profile;
     Boolean img_update = false;
     String img_path;
     int img_index;
@@ -119,21 +115,18 @@ public class Activity_edit_profile extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-
-
+        imageView_edit_profile.setBackground(new ShapeDrawable(new OvalShape()));
+        imageView_edit_profile.setClipToOutline(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        init();
-                    }
-                }).start();
 
         Edittext_edit_profile_name = findViewById(R.id.Edittext_edit_profile_name);
         Edittext_edit_profile_intro = findViewById(R.id.Edittext_edit_profile_intro);
@@ -212,8 +205,8 @@ public class Activity_edit_profile extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-
-//                finish();
+//                init();
+                finish();
 
             }
         });
@@ -227,6 +220,10 @@ public class Activity_edit_profile extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        // 서버에서 데이터 불러오기
+        init();
 
 
     }

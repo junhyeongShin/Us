@@ -28,10 +28,14 @@
         />
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView android:layout_width="match_parent" android:layout_height="200dp"
-               android:id="@+id/imageView_edit_profile"
-               android:src="@drawable/warcraft3_log"
-    />
+<!--    <ImageView android:layout_width="match_parent" android:layout_height="200dp"-->
+<!--               android:id="@+id/imageView_edit_profile"-->
+<!--               android:src="@drawable/warcraft3_log"-->
+<!--               android:background="@drawable/profile_img_background_round"-->
+<!--    />-->
+    <de.hdodenhof.circleimageview.CircleImageView android:layout_width="match_parent" android:layout_height="200dp"
+                                                  android:id="@+id/imageView_edit_profile"
+                                                  android:src="@drawable/warcraft3_log"/>
 
     <Button android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="프로필 이미지 선택"

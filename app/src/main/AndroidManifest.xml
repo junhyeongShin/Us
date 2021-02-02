@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.us">
+          xmlns:tools="http://schemas.android.com/tools" package="com.example.us">
     <!-- 인터넷사용 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- 알람 설정에 필요한 퍼미션 -->
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- 알람 설정에 필요한 퍼미션 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
-<!--    스토리지 사용-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- 스토리지 사용 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
@@ -19,8 +16,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".Popup_board_link" tools:ignore="DuplicateActivity" android:theme="@android:style/Theme.Dialog">
+        </activity>
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+        <uses-library
+                android:name="org.apache.http.legacy"
+                android:required="false"/>
 
         <activity android:name=".TestActivity">
         </activity>
