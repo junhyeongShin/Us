@@ -12,8 +12,8 @@ public interface Retrofit_api {
     @GET()
     Call<List<Post>> getData(@Query("userId") String id);
 
-    @GET("/Data/board_list.php")
-    Call<List<Post>> getData_board(@Query("user_id") int id, @Query("category") String category, @Query("request_list") String list);
+    @GET("/Data/board/board_list.php")
+    Call<List<Board_list>> getData_board(@Query("user_id") int id, @Query("category") String category, @Query("request_list") String list);
 
     @FormUrlEncoded
     @POST()

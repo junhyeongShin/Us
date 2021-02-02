@@ -147,7 +147,7 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
                     if(post_result_decode.equals("OK")){
                         System.out.println("게시물 등록 성공");
 //                        Toast.makeText(getApplicationContext(), "게시물 등록 성공.",Toast.LENGTH_SHORT).show();
-                           finish();
+                        onBackPressed();
                     }else {
 //                        Toast.makeText(getApplicationContext(), "게시물 등록 실패",Toast.LENGTH_SHORT).show();
                         System.out.println("게시물 등록 실패");

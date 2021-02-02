@@ -52,17 +52,17 @@
                 android:layout_height="wrap_content">
 
         </Button>
-        <Button
-                android:text="즐겨찾기"
-                android:textSize="20sp"
-                android:textColor="#ffffff"
-                android:id="@+id/btn_all_favorites"
-                android:background="@drawable/background_text_sub_bar_blue"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+<!--        <Button-->
+<!--                android:text="즐겨찾기"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textColor="#ffffff"-->
+<!--                android:id="@+id/btn_all_favorites"-->
+<!--                android:background="@drawable/background_text_sub_bar_blue"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
 
-        </Button>
+<!--        </Button>-->
 
     </LinearLayout>
 

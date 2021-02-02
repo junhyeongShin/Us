@@ -1,4 +1,5 @@
 package com.example.us;
+import android.os.Handler;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +8,18 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,11 +28,23 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
 
     private static final String TAG = "Activity_board / ";
 
-    String category_selected = "";
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishActivity(0);
+    }
 
-    private ArrayList<Item_board> array_item_board = new ArrayList<>();
+    String category_selected = "파오캐";
+
+    private ArrayList<Board_list> board_list_recycler = new ArrayList<>();
     private Adapter itemAdapter;
     private RecyclerView RecyclerView_main;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init(board_list_recycler);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +121,12 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         RecyclerView_main.setLayoutManager(linearLayoutManager);
 
-        //TODO:전체보기로 추가
-
-        init(array_item_board);
+        try {
+            retrofit_api("all");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        init(board_list_recycler);
 
         Button btn_all_board = findViewById(R.id.btn_all_board);
         btn_all_board.setOnClickListener(new View.OnClickListener() {
@@ -113,11 +134,14 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View v) {
                 System.out.println(TAG+"-btn_all_board- : onclick");
 
-                retrofit_api("all");
+                try {
+                    retrofit_api("all");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 System.out.println(TAG+"retrofit_api(all)");
 
-                //TODO:전체보기로 추가
-//                init(array_item_board);
+                init(board_list_recycler);
             }
         });
 
@@ -126,66 +150,88 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
 
-                ArrayList<Item_board> array_item_board_selected = new ArrayList<>();
+                System.out.println(TAG+"-btn_all_views- : onclick");
 
-                //TODO:인기순
-                init(array_item_board_selected);
+                try {
+                    retrofit_api("views");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(TAG+"retrofit_api(views)");
+
+
 
             }
         });
 
-        Button btn_all_favorites = findViewById(R.id.btn_all_favorites);
-        btn_all_favorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ArrayList<Item_board> array_item_board_selected = new ArrayList<>();
-
-                //TODO:즐겨찾기
-                user_info.getInstance().getUser_favorites_list();
-                init(array_item_board_selected);
-            }
-        });
+//        Button btn_all_favorites = findViewById(R.id.btn_all_favorites);
+//        btn_all_favorites.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                System.out.println(TAG+"-btn_all_favorites- : onclick");
+//                //TODO:즐겨찾기
+//
+//                try {
+//                    retrofit_api("favorites");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.println(TAG+"retrofit_api(favorites)");
+//
+//
+//            }
+//        });
 
 
     }
 
-    private void retrofit_api(String request_list){
+
+
+    private void retrofit_api(String request_list) throws UnsupportedEncodingException {
 
         System.out.println(TAG+" - retrofit_api : start");
         System.out.println(TAG+" - retrofit_api_url : "+server_info.getInstance().getURL());
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(server_info.getInstance().getURL())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
-
 
         Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);
 
-        retrofit_api.getData_board(user_info.getInstance().getUser_index_number(), category_selected,request_list).enqueue(new Callback<List<Post>>() {
+        retrofit_api.getData_board(user_info.getInstance().getUser_index_number(), category_selected,request_list).enqueue(new Callback<List<Board_list>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<List<Board_list>> call, Response<List<Board_list>> response) {
+                System.out.println("onResponse : call"+call);
+                System.out.println("onResponse : response"+response);
                 if(response.isSuccessful()){
-                    List<Post> data = response.body();
+                    List<Board_list> board_list = response.body();
                     System.out.println("성공");
-                    System.out.println(data.get(0).getTitle());
+
+                    init((ArrayList<Board_list>) board_list);
+
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                System.out.println("실패 : "+t);
+            public void onFailure(Call<List<Board_list>> call, Throwable t) {
+                System.out.println("실패 Throwable : "+t.toString());
+                System.out.println("실패 call : "+call.toString());
             }
         });
 
     }
-//초기화
-    private void init(ArrayList<Item_board> array_item_board) {
+    //초기화
+    private void init(ArrayList<Board_list> array_list_board) {
 
-        System.out.println("Adapter start : "+array_item_board);
-        itemAdapter = new Adapter(array_item_board);
+        System.out.println("Adapter start : "+array_list_board);
+        itemAdapter = new Adapter(array_list_board);
+        itemAdapter.notifyDataSetChanged();
         RecyclerView_main.setAdapter(itemAdapter);
 
         Button btn_test_recycle = findViewById(R.id.btn_test_recycle);
@@ -193,11 +239,9 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 System.out.println(TAG+"onClick");
-                itemAdapter.addItem(new Item_board(1,"아이템","test","test",0));
                 itemAdapter.notifyDataSetChanged();
             }
         });
-
     }
 
     //스피너에서 선택된 값을
@@ -211,14 +255,39 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
 
         if(id==0){
             category_selected = "파오캐";
+            try {
+                retrofit_api("all");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }else if(id==1){
             category_selected = "카오스";
+            try {
+                retrofit_api("all");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }else if(id==2){
             category_selected = "원랜디";
+            try {
+                retrofit_api("all");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }else if(id==3){
-            category_selected = "뿔레전쟁";
+            category_selected = "뿔레";
+            try {
+                retrofit_api("all");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }else if(id==4) {
             category_selected = "기타";
+            try {
+                retrofit_api("all");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         System.out.println(TAG+" : onItemSelected category_selected : "+category_selected);

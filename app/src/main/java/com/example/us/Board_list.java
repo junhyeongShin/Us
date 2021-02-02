@@ -6,18 +6,38 @@ import java.util.Date;
 
 public class Board_list {
 
-
-    //TODO : 레트로핏에 post 대신 현 클래스 대입 후 테스트.
-    @SerializedName("user_id")
-    private int user_id;
+    @SerializedName("id")
+    private int id;
+    @SerializedName("writer")
+    private int writer;
     @SerializedName("views")
     private int views;
+    @SerializedName("content")
+    private String content;
     @SerializedName("category")
     private String category;
     @SerializedName("title")
     private String title;
+    @SerializedName("email")
+    private String email;
     @SerializedName("create_time")
     private Date create_time;
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
 
     public void setViews(int views) {
         this.views = views;
@@ -31,8 +51,20 @@ public class Board_list {
         this.category = category;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public int getWriter() {
+        return writer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setWriter(int writer) {
+        this.writer = writer;
     }
 
     public void setCreate_time(Date create_time) {
@@ -47,9 +79,6 @@ public class Board_list {
         return create_time;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
 
     public int getViews() {
         return views;
