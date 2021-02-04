@@ -126,7 +126,6 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        init(board_list_recycler);
 
         Button btn_all_board = findViewById(R.id.btn_all_board);
         btn_all_board.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +212,9 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
                     List<Board_list> board_list = response.body();
                     System.out.println("성공");
 
-                    init((ArrayList<Board_list>) board_list);
+                    board_list_recycler = (ArrayList<Board_list>) board_list;
+
+                    init(board_list_recycler);
 
                 }
             }
@@ -234,14 +235,7 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         itemAdapter.notifyDataSetChanged();
         RecyclerView_main.setAdapter(itemAdapter);
 
-        Button btn_test_recycle = findViewById(R.id.btn_test_recycle);
-        btn_test_recycle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println(TAG+"onClick");
-                itemAdapter.notifyDataSetChanged();
-            }
-        });
+
     }
 
     //스피너에서 선택된 값을

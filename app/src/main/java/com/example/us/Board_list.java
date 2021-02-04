@@ -22,6 +22,36 @@ public class Board_list {
     private String email;
     @SerializedName("create_time")
     private Date create_time;
+    @SerializedName("intro_profile")
+    private String user_intro;
+    @SerializedName("img_profile")
+    private String user_img;
+    @SerializedName("username")
+    private String user_name;
+
+    public String getUser_intro() {
+        return user_intro;
+    }
+
+    public String getUser_img() {
+        return user_img;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public void setUser_img(String user_img) {
+        this.user_img = user_img;
+    }
+
+    public void setUser_intro(String user_intro) {
+        this.user_intro = user_intro;
+    }
 
     public void setEmail(String email) {
         this.email = email;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.example.us">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.example.us">
     <!-- 인터넷사용 -->
     <uses-permission android:name="android.permission.INTERNET"/> <!-- 알람 설정에 필요한 퍼미션 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
@@ -16,7 +17,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".Popup_board_link" tools:ignore="DuplicateActivity" android:theme="@android:style/Theme.Dialog">
+        <activity android:name=".Activity_board_edit">
+        </activity>
+        <activity android:name=".Activity_board_view">
+        </activity>
+        <activity
+                android:name=".Popup_board_link"
+                android:theme="@android:style/Theme.Dialog"
+                tools:ignore="DuplicateActivity">
         </activity>
 
         <uses-library

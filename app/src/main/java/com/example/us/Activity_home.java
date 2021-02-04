@@ -30,10 +30,10 @@ public class Activity_home extends AppCompatActivity {
         login_user_info.setUser_ID("test_id");
         login_user_info.setUser_name("test_name");
         login_user_info.setUser_intro_profile("test_intro");
-        login_user_info.setUser_index_number(10);
+        login_user_info.setUser_index_number(8);
 
-        System.out.println(TAG+"test_id : "+"test_id");
-        System.out.println(TAG+"test_id : "+"test_name");
+        System.out.println(TAG+"test_id : "+"ggga");
+        System.out.println(TAG+"test_id : "+"test_ggg");
         System.out.println(TAG+"test_id : "+"test_intro");
         System.out.println(TAG+"test_id : "+"index_number : "+user_info.getInstance().getUser_index_number());
 
