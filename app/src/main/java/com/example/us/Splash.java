@@ -1,10 +1,19 @@
 package com.example.us;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.us.login.Login;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Splash extends AppCompatActivity {
 
@@ -13,8 +22,10 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        Handler hd = new Handler();
-        hd.postDelayed(new splashhandler(), 3000);
+//        Handler hd = new Handler();
+//        hd.postDelayed(new splashhandler(), 3000);
+
+
         
     }
 

@@ -18,6 +18,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jp.wasabeef.richeditor.RichEditor;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,10 +128,13 @@ public class Activity_board_edit extends AppCompatActivity implements AdapterVie
                 } else {
                     Toast.makeText(getApplicationContext(), "게시물 수정 중.", Toast.LENGTH_SHORT).show();
 
+                    Gson gson = new GsonBuilder()
+                            .setLenient()
+                            .create();
 
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(server_info_url)
-                            .addConverterFactory(GsonConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create(gson))
                             .build();
 
                     Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);

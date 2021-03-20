@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.android.volley.request.JsonObjectRequest;
+import de.hdodenhof.circleimageview.CircleImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +18,7 @@ public class Activity_edit_userdata extends AppCompatActivity {
     private static final String TAG = "Activity_edit_userdata";
     String server_info_url = server_info.getInstance().getURL();
     String user_id = user_info.getInstance().getUser_ID();
-    ImageView imageView_edit;
+    CircleImageView imageView_edit;
 
     @Override
     protected void onStop() {
@@ -30,10 +31,17 @@ public class Activity_edit_userdata extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        System.out.println(TAG+"onResume");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         init();
 
-        System.out.println(TAG+"onResume");
+        System.out.println(TAG+"onStart");
     }
 
     @Override
@@ -98,8 +106,6 @@ public class Activity_edit_userdata extends AppCompatActivity {
                 else {
                     Toast.makeText(getApplicationContext(), "새로운 비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
 
@@ -154,7 +160,7 @@ public class Activity_edit_userdata extends AppCompatActivity {
                     ImageLoadTask imageLoadTask = new ImageLoadTask(server_info_url+"/Data/img_file/"+user_img_path,imageView_edit);
                     imageLoadTask.execute();
 
-                    System.out.println("img url : " + Uri.parse("192.168.56.1/Data/img_file/"+user_img_path));
+                    System.out.println("img url : " + Uri.parse(server_info_url+"/Data/img_file/"+user_img_path));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

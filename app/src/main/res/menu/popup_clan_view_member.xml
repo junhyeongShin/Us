@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/menu_clan_view_member"
+            android:title="맴버 보기"/>
+    <item
+            android:id="@+id/menu_clan_view_out"
+            android:title="탈퇴"/>
+
+</menu>

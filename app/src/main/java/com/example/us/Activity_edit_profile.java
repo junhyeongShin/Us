@@ -1,4 +1,5 @@
 package com.example.us;
+import android.os.Handler;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -45,14 +46,17 @@ public class Activity_edit_profile extends AppCompatActivity {
     String img_path;
     int img_index;
 
+    String user_name = "";
+    String user_intro = "";
+
     String user_id = user_info.getInstance().getUser_ID();
 
     server_info server_info = new server_info();
 
     String server_info_url = server_info.getURL();
 
-    EditText  Edittext_edit_profile_name ;
-    EditText  Edittext_edit_profile_intro ;
+    EditText Edittext_edit_profile_name;
+    EditText Edittext_edit_profile_intro;
 
     //액티비티 실행시 필요한 데이터 (유저 아이디, 이름, 자기소개, 프로필 사진)
     //요청해서 각 레이아웃에 적용
@@ -68,8 +72,8 @@ public class Activity_edit_profile extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                String user_name = "";
-                                String user_intro = "";
+                                user_name = "";
+                                user_intro = "";
                                 String user_img_path = "";
 
                                String result_user_data = post_to_server.post_data_get_id("/Data/user_data_get.php",user_id);
@@ -80,18 +84,15 @@ public class Activity_edit_profile extends AppCompatActivity {
                                     user_name = jsonObject_decode.getString("username");
                                     user_intro = jsonObject_decode.getString("intro_profile");
 
+                                    String result_img_data_decode =  jsonObject.getString("result_img");
+                                    JSONObject jsonObject_img_decode = new JSONObject(result_img_data_decode);
 
 
                                     TextView TextView_edit_profile_name = findViewById(R.id.TextView_edit_profile_name);
                                     TextView_edit_profile_name.setText("닉네임 : "+user_name);
 
-
                                     TextView TextView_edit_profile_detail = findViewById(R.id.TextView_edit_profile_detail);
                                     TextView_edit_profile_detail.setText("소개 : "+user_intro);
-
-                                    String result_img_data_decode =  jsonObject.getString("result_img");
-                                    JSONObject jsonObject_img_decode = new JSONObject(result_img_data_decode);
-
 
                                     //이미지 부분 json 파싱된 uri를 이용해 이미지 표시
                                     user_img_path = jsonObject_img_decode.getString("img_path");
@@ -99,13 +100,33 @@ public class Activity_edit_profile extends AppCompatActivity {
                                     ImageLoadTask imageLoadTask = new ImageLoadTask(server_info_url+"/Data/img_file/"+user_img_path,imageView_edit_profile);
                                     imageLoadTask.execute();
 
-                                    System.out.println("img url : " + Uri.parse("192.168.56.1/Data/img_file/"+user_img_path));
+                                    System.out.println("img url : " + Uri.parse(server_info_url+"/Data/img_file/"+user_img_path));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
                             }
                 }).start();
+
+                final Handler mhandler = new Handler();
+                Thread mthread = new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        mhandler.post(new Runnable(){
+                            @Override
+                            public void run() {
+
+                                Edittext_edit_profile_name = findViewById(R.id.Edittext_edit_profile_name);
+                                Edittext_edit_profile_name.setText(user_name);
+
+                                Edittext_edit_profile_intro = findViewById(R.id.Edittext_edit_profile_intro);
+                                Edittext_edit_profile_intro.setText(user_intro);
+                            }
+                        });
+                    }
+                });
+                mthread.start();
+
 
 
         TextView TextView_edit_profile_id = findViewById(R.id.TextView_edit_profile_id);
@@ -119,17 +140,15 @@ public class Activity_edit_profile extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        imageView_edit_profile.setBackground(new ShapeDrawable(new OvalShape()));
-        imageView_edit_profile.setClipToOutline(true);
+
+//        imageView_edit_profile.setBackground(new ShapeDrawable(new OvalShape()));
+//        imageView_edit_profile.setClipToOutline(true);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
-        Edittext_edit_profile_name = findViewById(R.id.Edittext_edit_profile_name);
-        Edittext_edit_profile_intro = findViewById(R.id.Edittext_edit_profile_intro);
 
         imageView_edit_profile = findViewById(R.id.imageView_edit_profile);
 
@@ -181,12 +200,20 @@ public class Activity_edit_profile extends AppCompatActivity {
                             // 닉네임 및 소개
                             // 아무것도 입력하지 않았을경우 if 문으로 제외
 
+                            Edittext_edit_profile_name = findViewById(R.id.Edittext_edit_profile_name);
+                            user_name = Edittext_edit_profile_name.getText().toString();
+
+                            Edittext_edit_profile_intro = findViewById(R.id.Edittext_edit_profile_intro);
+                            user_intro = Edittext_edit_profile_intro.getText().toString();
+
                             Post_to_server post_to_server = new Post_to_server();
-                            if(!Edittext_edit_profile_name.getText().toString().equals("")){
-                                post_to_server.post_data_id("/Data/user_data_edit.php",user_id,"username", Edittext_edit_profile_name.getText().toString());
+                            if(!user_name.equals("")){
+                                post_to_server.post_data_id("/Data/user_data_edit.php",user_id,"username", user_name);
+                                com.example.us.user_info.getInstance().setUser_name(user_name);
                             }
-                            if(!Edittext_edit_profile_intro.getText().toString().equals("")){
-                                post_to_server.post_data_id("/Data/user_data_edit.php",user_id,"intro_profile", Edittext_edit_profile_intro.getText().toString());
+                            if(!user_intro.equals("")){
+                                post_to_server.post_data_id("/Data/user_data_edit.php",user_id,"intro_profile", user_intro);
+                                com.example.us.user_info.getInstance().setUser_intro_profile(user_intro);
                             }
                         }catch(Exception e){
                             e.printStackTrace();
@@ -206,6 +233,7 @@ public class Activity_edit_profile extends AppCompatActivity {
                 }
 
 //                init();
+
                 finish();
 
             }
@@ -220,7 +248,6 @@ public class Activity_edit_profile extends AppCompatActivity {
                 finish();
             }
         });
-
 
         // 서버에서 데이터 불러오기
         init();

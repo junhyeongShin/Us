@@ -1,17 +1,28 @@
 package com.example.us;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.*;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.android.volley.Response;
 import com.android.volley.request.StringRequest;
+import com.example.us.Message.Message;
+import com.example.us.Message.MessageType;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,32 +30,63 @@ public class Activity_home extends AppCompatActivity {
 
     private static final String TAG = "Activity_home";
 
+    Socket_service mService;
+    boolean mBound = false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Bind to LocalService
+        Intent intent = new Intent(this, Socket_service.class);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        intent.putExtra("id",user_info.getInstance().getUser_index_number());
+        startService(intent);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
 
-        //TODO:시연때는 LOGIN에서 정보 입력 해주고 종료
-        user_info login_user_info = user_info.getInstance();
-        login_user_info.setUser_ID("test_id");
-        login_user_info.setUser_name("test_name");
-        login_user_info.setUser_intro_profile("test_intro");
-        login_user_info.setUser_index_number(8);
-
-        System.out.println(TAG+"test_id : "+"ggga");
-        System.out.println(TAG+"test_id : "+"test_ggg");
-        System.out.println(TAG+"test_id : "+"test_intro");
-        System.out.println(TAG+"test_id : "+"index_number : "+user_info.getInstance().getUser_index_number());
-
-        Button btn_test_imgupload = findViewById(R.id.btn_test_imgupload);
-        btn_test_imgupload.setOnClickListener(new View.OnClickListener() {
+        Button button = findViewById(R.id.btn_test_for_service);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mBound) {
+                    System.out.println("mBound is true");
 
-                Intent mIntent = new Intent(getApplicationContext(), TestActivity.class);
-                startActivity(mIntent);
+                    Message message = new Message();
+                    message.setType(MessageType.ROOMLIST);
 
+                    User_list_item user = new User_list_item();
+                    user.setId(user_info.getInstance().getUser_index_number());
+                    user.setUser_name(user_info.getInstance().getUser_name());
+                    user.setUser_img(user_info.getInstance().getImg_path());
+                    user.setUser_intro(user_info.getInstance().getUser_intro_profile());
+
+                    ArrayList<User_list_item> userlist = new ArrayList<>();
+                    userlist.add(user);
+                    message.setUserInfoArrayList(userlist);
+
+                    try {
+                        mService.send_message(message);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }else {
+                    System.out.println("mBound is not");
+                }
             }
         });
 
@@ -54,8 +96,9 @@ public class Activity_home extends AppCompatActivity {
         btn_bottom_guild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(getApplicationContext(), Activity_guild.class);
-                startActivity(mIntent);
+
+                get_data_server();
+
                 finish();
             }
         });
@@ -90,6 +133,79 @@ public class Activity_home extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    void get_data_server(){
+        int user_id = user_info.getInstance().getUser_index_number();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(server_info.getInstance().getURL())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+
+        Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);
+
+
+        retrofit_api.getClan_check(user_id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    String data = response.body();
+//                    assert data != null;
+                    if(data.equals("true")){
+                        System.out.println("getClan_check: true");
+
+                        Intent mIntent = new Intent(getApplicationContext(), Activity_clan.class);
+                        startActivity(mIntent);
+                    }else {
+                        System.out.println("getClan_check: "+data);
+
+                        Intent mIntent = new Intent(getApplicationContext(), Activity_no_clan.class);
+                        startActivity(mIntent);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                System.out.println("getClan_check 실패 call : "+call.toString());
+                System.out.println("getClan_check 실패 Throwable : "+t.toString());
+            }
+        });
+
+
+    }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get Service instance
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println(TAG);
+            Socket_service.Socket_binder binder = (Socket_service.Socket_binder) service;
+            System.out.println("Socket_service.Socket_binder binder = (Socket_service.Socket_binder) service;");
+            mService = binder.getService();
+            System.out.println("mService = binder.getService();");
+            mBound = true;
+            System.out.println("mBound = true");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+            System.out.println("홈 액티비티 - 서비스 연결 종료");
+
+        }
+    };
 
 
 

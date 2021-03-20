@@ -7,12 +7,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".MainActivity">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+    android:orientation="horizontal"
+                  android:background="#ffffff"
 
-    <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:id="@+id/btn_test_imgupload"
-            android:text="btn_test_imgupload"
-            android:textSize="24sp"
+    >
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="100dp"
+                   android:src="@drawable/logo_de_warcraft"
+                   android:layout_weight="1"
+                   android:scaleType="fitXY"
+
+        />
+
+    </LinearLayout>
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:id="@+id/btn_test_for_service"
+            android:text="btn_test_for_service"
     />
+
+
 <!--    하단 네비-->
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -30,7 +45,7 @@
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_bottom_guild"
-                android:text="길드"
+                android:text="클랜"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"

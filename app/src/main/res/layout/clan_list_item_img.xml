@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:background="#40E1F5FE"
+              android:layout_marginBottom="10dp"
+              android:id="@+id/item_clan_img"
+              android:layout_height="wrap_content">
+
+    <ImageView android:layout_width="match_parent" android:layout_height="150dp"
+    android:id="@+id/imageView_clan_item_img"
+               android:scaleType="fitXY"
+    />
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:textSize="24sp"
+              android:id="@+id/textview_clan_item_img"
+              android:textColor="#000000"
+              android:text="클랜 타이틀"
+              android:gravity="center"
+    />
+
+</LinearLayout>

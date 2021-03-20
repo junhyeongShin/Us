@@ -18,7 +18,7 @@
                       android:orientation="horizontal"
         >
 <!--            프로필사진-->
-            <ImageView android:layout_width="150dp"
+            <de.hdodenhof.circleimageview.CircleImageView android:layout_width="150dp"
                        android:layout_height="150dp"
                        android:id="@+id/imageView_more_profile"
                        android:layout_margin="20dp"
@@ -45,6 +45,17 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <ImageButton android:layout_width="50dp"
+                 android:layout_height="50dp"
+                 android:layout_gravity="right"
+                 android:id="@+id/btn_more_find_friend"
+                 android:text="친 구   관 리"
+                 android:layout_marginTop="10dp"
+                 android:textSize="18sp"
+                 android:textStyle="bold"
+                 android:textColor="#ffffff"
+                 android:background="@drawable/ic_baseline_person_add_48"/>
 
     <Button android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,7 +85,7 @@
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_bottom_guild"
-                android:text="길드"
+                android:text="클랜"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"

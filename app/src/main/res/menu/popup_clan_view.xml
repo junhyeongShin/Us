@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/menu_clan_view_join"
+            android:title="가입 신청 목록"/>
+    <item
+            android:id="@+id/menu_clan_view_member"
+            android:title="맴버 보기"/>
+    <item
+            android:id="@+id/menu_clan_view_edit"
+            android:title="정보 수정"/>
+    <item
+            android:id="@+id/menu_clan_view_setting"
+            android:title="설정"/>
+    <item
+            android:id="@+id/menu_clan_view_del"
+            android:title="해체"/>
+
+</menu>

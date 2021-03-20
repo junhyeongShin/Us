@@ -51,7 +51,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder> {
             super(itemView);
 
             context = itemView.getContext();
-            System.out.println(TAG+"ItemViewHolder");
+//            System.out.println(TAG+"ItemViewHolder");
             TextView_board_itemView_title = itemView.findViewById(R.id.TextView_board_itemView_title);
             TextView_board_itemView_writer = itemView.findViewById(R.id.TextView_board_itemView_writer);
             TextView_board_itemView_time = itemView.findViewById(R.id.TextView_board_itemView_time);
@@ -63,7 +63,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder> {
         }
 
         public void onBind(Board_list item_board){
-            System.out.println(TAG+"onBind");
+//            System.out.println(TAG+"onBind");
 
             // 현재시간을 msec 으로 구한다.
                 long now = System.currentTimeMillis();
@@ -72,20 +72,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder> {
                 Date date = new Date(String.valueOf(item_board.getCreate_time()));
 
                 // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
-                SimpleDateFormat sdfNow = new SimpleDateFormat("MM/dd ");
                 SimpleDateFormat sdfNow_year = new SimpleDateFormat("yyyy");
                 SimpleDateFormat sdfNow_month = new SimpleDateFormat("MM");
-                SimpleDateFormat sdfNow_Time = new SimpleDateFormat("HH:00");
                 SimpleDateFormat sdfNow_day = new SimpleDateFormat("dd");
-                SimpleDateFormat sdfNow_hour = new SimpleDateFormat("HH");
 
                 // nowDate 변수에 값을 저장한다.
-                String formatDate = sdfNow.format(date);
                 String formatYear = sdfNow_year.format(date);
                 String formatMonth = sdfNow_month.format(date);
                 String formatDay = sdfNow_day.format(date);
-                String formatTime = sdfNow_Time.format(date);
-                String formatHour = sdfNow_hour.format(date);
 
             TextView_board_itemView_title.setText(item_board.getTitle());
             TextView_board_itemView_writer.setText(item_board.getEmail());
@@ -95,7 +89,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder> {
             if(user_info.getInstance().getUser_index_number()==item_board.getWriter()){
                 btn_board_item_del.setVisibility(View.VISIBLE);
                 btn_board_item_edit.setVisibility(View.VISIBLE);
-
                 }
 
 
@@ -104,7 +97,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder> {
 
     @Override
     public Adapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        System.out.println(TAG+"onCreateViewHolder");
+//        System.out.println(TAG+"onCreateViewHolder");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_board_item, parent, false);
         return new Adapter.ItemViewHolder(view);
     }
@@ -116,7 +109,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder> {
     // 게시판 정보 : 전부다 넘겨줌 => 바로 표시가능하게게
    @Override
     public void onBindViewHolder(@NonNull Adapter.ItemViewHolder holder, final int position) {
-        System.out.println(TAG+"onBindViewHolder");
+//        System.out.println(TAG+"onBindViewHolder");
         holder.onBind(mData.get(position));
 
        holder.btn_board_item_del.setOnClickListener(new OnClickListener() {
@@ -129,7 +122,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder> {
                //아이템 삭제하는 요청
 
                delete_item(mData.get(position));
-
 
            }
        });
@@ -154,8 +146,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder> {
                String user_img = mData.get(position).getUser_img();
                String user_email = mData.get(position).getEmail();
 
-               System.out.println(getClass().getSimpleName()+"_onClick_position : "+position);
-               System.out.println(getClass().getSimpleName()+"_onClick_index : "+index);
+//               System.out.println(getClass().getSimpleName()+"_onClick_position : "+position);
+//               System.out.println(getClass().getSimpleName()+"_onClick_index : "+index);
 
                Intent mIntent = new Intent(context, Activity_board_edit.class);
                mIntent.putExtra("id", index);

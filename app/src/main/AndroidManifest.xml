@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- 스토리지 사용 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
             android:allowBackup="true"
@@ -17,6 +18,51 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".Activity_chat_room">
+        </activity>
+
+        <service
+                android:name=".Message_service"
+                android:enabled="true"
+                android:exported="true">
+        </service>
+        <service
+                android:name=".Socket_service"
+                android:enabled="true"
+                android:exported="true">
+        </service>
+
+        <activity android:name=".Activity_clan_member_view">
+        </activity>
+        <activity android:name=".Activity_clan_join_list">
+        </activity>
+        <activity android:name=".Activity_clan">
+        </activity>
+        <activity android:name=".Activity_clan_search">
+        </activity>
+        <activity android:name=".Activity_clan_view">
+        </activity>
+        <activity
+                android:name=".Activity_no_clan"
+                android:label="@string/title_activity_no_clan"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".Activity_clan_edit">
+        </activity>
+        <activity android:name=".Activity_clan_add">
+        </activity>
+        <activity android:name=".Activity_friend_list_del">
+        </activity>
+        <activity android:name=".Activity_friend_list">
+        </activity>
+        <activity android:name=".Activity_re_comment_edit">
+        </activity>
+        <activity android:name=".Activity_re_comment_add">
+        </activity>
+        <activity android:name=".Activity_comment_edit">
+        </activity>
+        <activity android:name=".Activity_comment_add">
+        </activity>
         <activity android:name=".Activity_board_edit">
         </activity>
         <activity android:name=".Activity_board_view">
@@ -42,17 +88,18 @@
         <activity android:name=".Activity_home">
 
             <!-- 테스트는 여기서 시작하게 -->
+
+        </activity>
+        <activity android:name=".login.Signup">
+        </activity>
+        <activity android:name=".login.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".login.Signup">
-        </activity>
-        <activity android:name=".login.Login">
-
             <!-- 시연때는 여기로 시작 -->
+
         </activity>
         <activity android:name=".Splash">
         </activity>

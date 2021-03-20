@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <ImageView android:layout_width="24dp" android:layout_height="24dp"
+               android:layout_gravity="center"
+               android:src="@drawable/ic_baseline_subdirectory_arrow_right_24"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    />
+    <de.hdodenhof.circleimageview.CircleImageView android:layout_width="60dp"
+                                                  android:id="@+id/circleimage_re_comment"
+                                                  android:layout_height="60dp"/>
+    <LinearLayout android:layout_width="0dp"
+                  android:orientation="vertical"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textSize="14sp"
+                      android:textStyle="bold"
+                      android:text="textview_re_comment_username"
+                      android:id="@+id/textview_re_comment_username"
+                      android:layout_weight="1"
+            />
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                  android:textSize="20sp"
+                  android:layout_weight="1"
+                  android:text="textview_re_comment_content"
+                  android:id="@+id/textview_re_comment_content"
+        />
+<!--        <ImageButton android:layout_width="36dp" android:layout_height="36dp"-->
+<!--                     android:src="@drawable/ic_baseline_subdirectory_arrow_right_24"-->
+<!--                     android:id="@+id/ibtn_re_comment_add"-->
+<!--        />-->
+
+
+        </LinearLayout>
+<!--        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+<!--                  android:textSize="14sp"-->
+<!--                  android:text="textview_re_comment_etc"-->
+<!--                  android:id="@+id/textview_re_comment_etc"-->
+<!--        />-->
+
+
+    </LinearLayout>
+    <ImageButton
+            android:id="@+id/ibtn_re_comment_menu"
+            android:text="팝업메뉴"
+            android:background="#ffffff"
+            android:visibility="invisible"
+            android:src="@drawable/ic_baseline_more_vert_48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+</LinearLayout>

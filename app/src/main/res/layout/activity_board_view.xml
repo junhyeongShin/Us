@@ -83,7 +83,6 @@
                       android:background="@drawable/background_text_sub_bar_blue"
                       android:textColor="#ffffff"
                       android:layout_marginTop="10dp"
-
             />
 
             <WebView android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -93,20 +92,18 @@
                      tools:ignore="WebViewLayout"/>
 
 
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:textSize="20sp"
-                      android:gravity="center"
-                      android:text=" 댓 글 "
-                      android:background="@drawable/background_text_sub_bar_blue"
-                      android:textColor="#ffffff"
-                      android:layout_marginTop="10dp"
-
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:id="@+id/btn_board_view_add_comment"
+                    android:text="댓글 추가하기"
+                    android:textSize="20sp"
+                    android:textColor="#ffffff"
+                    android:background="@drawable/background_text_sub_bar_blue"
             />
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="300dp"
-                  android:text="댓글 영역"
-                  android:textSize="24sp"/>
+        <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+        android:id="@+id/recyclerview_board_view"
+        />
         </LinearLayout>
     </ScrollView>
 

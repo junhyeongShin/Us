@@ -29,6 +29,9 @@ public class Board_list {
     @SerializedName("username")
     private String user_name;
 
+
+
+
     public String getUser_intro() {
         return user_intro;
     }

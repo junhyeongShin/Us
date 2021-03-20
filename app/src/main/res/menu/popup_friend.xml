@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/menu_friend_add"
+            android:title="친 구 찾 기"/>
+    <item
+            android:id="@+id/menu_friend_del"
+            android:title="친 구 관 리"/>
+
+
+
+</menu>

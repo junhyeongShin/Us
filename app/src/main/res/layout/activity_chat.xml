@@ -5,7 +5,44 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".MainActivity">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:background="@drawable/background_text_sub_bar_blue"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <EditText android:layout_width="0dp"
+                  android:layout_marginTop="2dp"
+                  android:layout_height="50dp"
+                  android:layout_weight="1"
+                  android:textSize="24sp"
+                  android:id="@+id/edit_text_find_room"
+                  android:background="#ffffff"
+        />
+        <ImageButton android:layout_width="50dp"
+                     android:layout_height="54dp"
+                     android:id="@+id/ibtn_search_room"
+                     android:background="@drawable/background_corner"
+                     android:src="@drawable/ic_baseline_search_48_white"/>
+        <ImageButton android:layout_width="50dp"
+                     android:layout_height="54dp"
+                     android:id="@+id/ibtn_add_room"
+                     android:background="@drawable/background_corner"
+                     android:src="@drawable/ic_baseline_group_add_48"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+    >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
 
 <!--    하단 네비-->
     <LinearLayout android:layout_width="match_parent"
@@ -24,7 +61,7 @@
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_bottom_guild"
-                android:text="길드"
+                android:text="클랜"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"

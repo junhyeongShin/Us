@@ -28,7 +28,7 @@
         />
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView android:layout_width="match_parent" android:layout_height="200dp"
+    <de.hdodenhof.circleimageview.CircleImageView android:layout_width="match_parent" android:layout_height="200dp"
     android:id="@+id/imageView_edit"
     android:src="@drawable/warcraft3_log"
     />

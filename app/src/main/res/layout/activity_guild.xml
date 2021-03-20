@@ -2,68 +2,11 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-
-<!--    하단 네비-->
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="bottom"
-    >
-        <Button android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_bottom_home"
-                android:text="홈"
-                android:textColor="#ffffff"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_weight="1" android:background="@drawable/background_text_sub_bar_gray">
-        </Button>
-        <Button android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_bottom_guild"
-                android:text="길드"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#ffffff"
-                android:layout_weight="1" android:background="@drawable/background_text_sub_bar_blue">
-
-        </Button>
-        <Button android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_bottom_chat"
-                android:text="채팅"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#ffffff"
-                android:layout_weight="1" android:background="@drawable/background_text_sub_bar_gray">
-
-        </Button>
-        <Button android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_bottom_board"
-                android:text="게시판"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#ffffff"
-                android:layout_weight="1" android:background="@drawable/background_text_sub_bar_gray">
-
-        </Button>
-        <Button android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_bottom_more"
-                android:text="더보기"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#ffffff"
-                android:layout_weight="1" android:background="@drawable/background_text_sub_bar_gray">
-
-        </Button>
-
-
-    </LinearLayout>
 
 
 </LinearLayout>

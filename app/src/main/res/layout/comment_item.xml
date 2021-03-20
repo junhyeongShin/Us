@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_marginTop="10dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+<!--    가로 레이아웃 시작-->
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView android:layout_width="60dp"
+                                                      android:src="@drawable/basic_img"
+                                                      android:id="@+id/circleimage_comment"
+                                                      android:layout_height="60dp"/>
+    <LinearLayout android:layout_width="0dp"
+                  android:orientation="vertical"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textSize="14sp"
+                      android:textStyle="bold"
+                      android:text="textview_comment_username"
+                      android:textColor="#3F51B5"
+                      android:id="@+id/textview_comment_username"
+                      android:layout_weight="1"
+            />
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                  android:textSize="20sp"
+                  android:layout_weight="1"
+                  android:text="textview_comment_content"
+                  android:id="@+id/textview_comment_content"
+        />
+
+        </LinearLayout>
+<!--        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+<!--                  android:textSize="14sp"-->
+<!--                  android:text="textview_comment_etc"-->
+<!--                  android:id="@+id/textview_comment_etc"-->
+<!--        />-->
+    </LinearLayout>
+<!--        댓글 종료-->
+        <!--    가로 레이아웃 종료-->
+        <ImageButton
+                android:id="@+id/ibtn_comment_menu"
+                android:text="팝업메뉴"
+                android:background="#ffffff"
+                android:src="@drawable/ic_baseline_more_vert_48"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+
+<!--    대댓글 리사이클러뷰 시작-->
+<androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                           android:layout_height="wrap_content"
+                                           android:id="@+id/re_comment"
+/>
+    <!--    대댓글 리사이클러뷰 종료-->
+
+<!--    레이아웃 종료-->
+</LinearLayout>

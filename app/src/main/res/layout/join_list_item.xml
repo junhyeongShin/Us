@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+>
+<de.hdodenhof.circleimageview.CircleImageView android:layout_width="80dp" android:layout_height="80dp"
+            android:id="@+id/imageview_join_list_item"
+           android:src="@drawable/basic_img"
+
+/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+    <TextView android:layout_width="wrap_content" android:layout_height="50dp"
+    android:id="@+id/textview_join_list_name"
+              android:textSize="24sp"
+              android:gravity="center"
+              android:textStyle="bold"
+              android:text="닉네임"
+    />
+    <TextView android:layout_width="wrap_content" android:layout_height="30dp"
+              android:id="@+id/textview_join_list_intro"
+              android:textSize="20sp"
+              android:gravity="center"
+              android:text="소개"
+              android:maxLines="1"
+              android:ellipsize="end"
+    />
+    </LinearLayout>
+    <ImageButton android:layout_width="80dp" android:layout_height="80dp"
+               android:id="@+id/ibtn_join_list_add"
+               android:src="@drawable/ic_baseline_how_to_reg_48_blue"
+                 android:background="#ffffff"
+
+    />
+</LinearLayout>

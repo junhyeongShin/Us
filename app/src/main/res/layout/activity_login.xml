@@ -11,6 +11,8 @@
 
     <EditText
             android:hint="ID"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textSize="24sp"
             android:layout_width="300dp"
             android:layout_height="65dp"
@@ -71,9 +73,8 @@
             app:layout_constraintHorizontal_bias="0.504" app:layout_constraintBottom_toTopOf="@+id/btn_login"/>
 
     <ImageView
-            android:layout_width="186dp"
-            android:layout_height="177dp"
-            android:src="@mipmap/ic_launcher"
+            android:layout_width="249dp"
+            android:layout_height="228dp"
             android:id="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +83,7 @@
             app:layout_constraintVertical_bias="0.0"
             android:layout_marginTop="50dp" app:srcCompat="@drawable/warcraft3_log"/>
     <TextView
-            android:text="Warcraft community"
+            android:text=""
             android:textStyle="bold"
             android:textSize="24sp"
             android:layout_width="wrap_content"

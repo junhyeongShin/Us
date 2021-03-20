@@ -23,7 +23,7 @@
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_bottom_guild"
-                android:text="길드"
+                android:text="클랜"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"

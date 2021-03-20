@@ -2,7 +2,7 @@ package com.example.us;
 
 public class server_info {
 
-//    private final String URL = "http://13.125.205.208/comunity_app";
+//    private final String URL = "http://13.125.205.208";
     private final String URL = "http://192.168.56.1";
 
     //싱글톤 패턴 ~

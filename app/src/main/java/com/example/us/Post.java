@@ -1,5 +1,8 @@
 package com.example.us;
 
+import android.content.Intent;
+import android.view.MenuItem;
+import android.widget.PopupMenu;
 import com.google.gson.annotations.SerializedName;
 
 public class Post {
@@ -44,5 +47,6 @@ public class Post {
     public void setContent(String content) {
         this.content = content;
     }
+
 
 }

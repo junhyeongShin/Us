@@ -14,8 +14,6 @@
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent" android:layout_height="wrap_content">
-
-
             <TextView
                     android:text="title title title title title title title"
                     android:textSize="24sp"

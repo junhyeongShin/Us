@@ -1,4 +1,5 @@
 package com.example.us;
+import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Bitmap;
@@ -6,11 +7,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,12 +49,16 @@ public class Activity_board_view extends AppCompatActivity {
 
     //
     CircleImageView imageview_board_view_profile;
+    Context context;
 
+    private ArrayList<comment> mData = null ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_view);
+
+        context = Activity_board_view.this.getBaseContext();
 
         Intent mIntent =getIntent();
         id = mIntent.getIntExtra("id",0);
@@ -99,13 +107,73 @@ public class Activity_board_view extends AppCompatActivity {
         imageview_board_view_profile = findViewById(R.id.imageview_board_view);
 
 
+
+        //댓글추가버튼
+        Button btn_board_view_add_comment = findViewById(R.id.btn_board_view_add_comment);
+        btn_board_view_add_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(getApplicationContext(), Activity_comment_add.class);
+
+                mIntent.putExtra("board_id",id);
+                mIntent.putExtra("title",title);
+
+                startActivity(mIntent);
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         try {
             retrofit_api(user_img);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(server_info.getInstance().getURL())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);
+
+        retrofit_api.getData_comment_list(id).enqueue(new Callback<List<comment>>() {
+            @Override
+            public void onResponse(Call<List<comment>> call, Response<List<comment>> response) {
+                System.out.println("onResponse : call" + call);
+                System.out.println("onResponse : response" + response);
+                if (response.isSuccessful()) {
+                    List<comment> board_list = response.body();
+                    System.out.println("성공");
+
+                    for (int i = 0; i < board_list.size(); i++) {
+                        System.out.println("ID : " + board_list.get(i).getId());
+                    }
+                    mData = (ArrayList<comment>) board_list;
+
+                    RecyclerView recyclerView = findViewById(R.id.recyclerview_board_view);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    RecyclerAdapter recyclerAdapter = new RecyclerAdapter(mData);
+                    recyclerView.setAdapter(recyclerAdapter);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<comment>> call, Throwable t) {
+                System.out.println("getData_comment_list 실패 Throwable : " + t.toString());
+                System.out.println("getData_comment_list 실패 call : " + call.toString());
+            }
+        });
     }
 
     private void retrofit_api(String user_img) throws UnsupportedEncodingException {

@@ -1,16 +1,12 @@
 package com.example.us;
 
-import com.android.volley.Response;
-import com.android.volley.request.StringRequest;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class user_info {
 
     String user_ID ;
     String user_intro_profile;
     String user_name ;
+    String img_path;
+
     int user_index_number;
     int user_guild_list;
     int user_img_profile;
@@ -18,6 +14,18 @@ public class user_info {
     int user_chat_room_list;
     int user_friend_list;
 
+
+    public static user_info getOurInstance() {
+        return ourInstance;
+    }
+
+    public String getImg_path() {
+        return img_path;
+    }
+
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
+    }
 
     //싱글톤 패턴 ~
     private static final user_info ourInstance = new user_info();

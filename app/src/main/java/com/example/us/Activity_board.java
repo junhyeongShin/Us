@@ -3,6 +3,8 @@ import android.os.Handler;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -37,6 +40,9 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
     String category_selected = "파오캐";
 
     private ArrayList<Board_list> board_list_recycler = new ArrayList<>();
+    private ArrayList<Board_list> board_list_recycler_search = new ArrayList<>();
+
+
     private Adapter itemAdapter;
     private RecyclerView RecyclerView_main;
 
@@ -50,6 +56,29 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
+
+        //검색창
+        final EditText edit_text_find_board = findViewById(R.id.edit_text_find_board);
+        // input창에 검색어를 입력시 "addTextChangedListener" 이벤트 리스너를 정의한다.
+        edit_text_find_board.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // input창에 문자를 입력할때마다 호출된다.
+                // search 메소드를 호출한다.
+                String text = edit_text_find_board.getText().toString();
+                search(text);
+            }
+        });
+
 
         Button btn_write_board = findViewById(R.id.btn_write_board);
         btn_write_board.setOnClickListener(new View.OnClickListener() {
@@ -78,8 +107,7 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         btn_bottom_guild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(getApplicationContext(), Activity_guild.class);
-                startActivity(mIntent);
+                clan_check();
                 finish();
             }
         });
@@ -235,7 +263,34 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         itemAdapter.notifyDataSetChanged();
         RecyclerView_main.setAdapter(itemAdapter);
 
+    }
 
+    // 검색을 수행하는 메소드
+    public void search(String charText) {
+
+        board_list_recycler_search = new ArrayList<>();
+
+        // 문자 입력이 없을때는 모든 데이터를 보여준다.
+        if (charText.length() == 0) {
+            System.out.println("문자 입력이 없을때");
+            init(board_list_recycler);
+        }
+        // 문자 입력을 할때..
+        else
+        {
+            // 리스트의 모든 데이터를 검색한다.
+            for(int i = 0;i < board_list_recycler.size(); i++)
+            {
+                // arraylist의 모든 데이터에 입력받은 단어(charText)가 포함되어 있으면 true를 반환한다.
+                if (board_list_recycler.get(i).getTitle().toLowerCase().contains(charText))
+                {
+                    // 검색된 데이터를 리스트에 추가한다.
+                    board_list_recycler_search.add(board_list_recycler.get(i));
+                }
+            }
+            // 리스트 데이터가 변경되었으므로 아답터를 갱신하여 검색된 데이터를 화면에 보여준다.
+            init(board_list_recycler_search);
+        }
     }
 
     //스피너에서 선택된 값을
@@ -292,5 +347,47 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         System.out.println(TAG+"onNothingSelected");
+    }
+
+
+    void clan_check(){
+        int user_id = user_info.getInstance().getUser_index_number();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(server_info.getInstance().getURL())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+
+        Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);
+
+
+        retrofit_api.getClan_check(user_id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    String data = response.body();
+                    assert data != null;
+                    if(data.equals("true")){
+                        System.out.println("getClan_check: true");
+
+                        Intent mIntent = new Intent(getApplicationContext(), Activity_clan.class);
+                        startActivity(mIntent);
+                    }else {
+                        System.out.println("getClan_check: "+data);
+
+                        Intent mIntent = new Intent(getApplicationContext(), Activity_no_clan.class);
+                        startActivity(mIntent);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                System.out.println("getClan_check 실패 call : "+call.toString());
+                System.out.println("getClan_check 실패 Throwable : "+t.toString());
+            }
+        });
+
+
     }
 }

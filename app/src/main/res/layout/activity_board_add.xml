@@ -35,6 +35,7 @@
               android:hint="제목"
               android:id="@+id/edit_text_board_add_title"
               android:textSize="20sp"
+              android:maxLines="1"
     />
 
     <Spinner android:layout_width="match_parent"

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
@@ -17,9 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.us.Activity_home;
-import com.example.us.R;
-import com.example.us.server_info;
+import com.example.us.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,9 +49,19 @@ public class Login extends AppCompatActivity {
     public static String USER_ID;
 
     @Override
+    protected void onResume() {
+
+        check = false;
+
+        super.onResume();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Toast.makeText(this.getApplicationContext(), "테스트",Toast.LENGTH_SHORT).show();
 
         btn_login = findViewById(R.id.btn_login);//로그인버튼
         btn_signup = findViewById(R.id.btn_signup);//회원가입 버튼
@@ -103,6 +112,7 @@ public class Login extends AppCompatActivity {
                 if(check){
                     Toast.makeText(Login.this,"로그인 성공",Toast.LENGTH_SHORT).show();
                     edit_text_id.setText("로그인 성공");
+
                     Intent intent = new Intent(getApplicationContext(), Activity_home.class);
                     startActivity(intent);
                     finish();
@@ -174,6 +184,8 @@ public class Login extends AppCompatActivity {
             // receive response as inputStream
             // http 연결 후 입력받은 json 데이터 판별
             try {
+                System.out.println("로그인 시도");
+
                 Post_is = httpCon.getInputStream();
                 // convert inputstream to string
 
@@ -188,14 +200,76 @@ public class Login extends AppCompatActivity {
                     String json_chek_login = jsonObject_result.getString("result_check");//배열의 이름
                     System.out.println(TAG+"json_chek_login : "+json_chek_login);
 
+                    String json_user_data = jsonObject_result.getString("result_data");//배열의 이름
+                    System.out.println(TAG+"json_user_data : "+json_user_data);
+
+                    JSONObject jsonObject_data = new JSONObject(json_user_data);
+                    System.out.println(TAG+"jsonObject_result : "+jsonObject_data);
+
+
                     if(json_chek_login.equals("OK")){
+
+
+
+
+
                         check = true;
                         System.out.println("로그인 성공");
+
+                        //TODO:시연때는 LOGIN에서 정보 입력 해주고 종료
+                        user_info login_user_info = user_info.getInstance();
+                        login_user_info.setUser_ID(jsonObject_data.getString("email"));
+                        login_user_info.setUser_name(jsonObject_data.getString("username"));
+                        login_user_info.setUser_intro_profile(jsonObject_data.getString("intro_profile"));
+                        login_user_info.setUser_index_number(jsonObject_data.getInt("index"));
+                        login_user_info.setUser_img_profile(jsonObject_data.getInt("img_profile"));
+
+                        System.out.println(TAG+" - email : "+jsonObject_data.getString("email"));
+                        System.out.println(TAG+" - username : "+jsonObject_data.getString("username"));
+                        System.out.println(TAG+" - intro_profile : "+jsonObject_data.getString("intro_profile"));
+                        System.out.println(TAG+" - index_number : "+user_info.getInstance().getUser_index_number());
+
+
+
+                        // 서버에 데이터 요청 후, 각 이미지 및 텍스트에 적용하는 쓰레드
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+
+                                final Post_to_server post_to_server =new Post_to_server();
+
+                                //포스트로 데이터 요청.
+                                String result_user_data = post_to_server.post_data_get_id("/Data/user_data_get.php",user_info.getInstance().getUser_ID());
+
+                                try {
+                                    JSONObject jsonObject = new JSONObject(result_user_data);
+                                    String result_img_data_decode =  jsonObject.getString("result_img");
+                                    JSONObject jsonObject_img_decode = new JSONObject(result_img_data_decode);
+
+
+                                    //이미지 부분 json 파싱된 uri를 이용해 이미지 표시
+                                    login_user_info.setImg_path(jsonObject_img_decode.getString("img_path"));
+
+
+
+                                    System.out.println("img url : " + Uri.parse(server_info.getInstance().getURL()+"/Data/img_file/"+jsonObject_img_decode.getString("img_path")));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }).start();
+
+
+
+
                     }else if(json_chek_login.equals("E_id")){
                         login_error = "없는 ID입니다.";
                     }else if(json_chek_login.equals("E_pw")){
                         login_error = "비밀번호가 틀렸습니다.";
                     }else {
+                        System.out.println("로그인 실패");
                         System.out.println(result);
                     }
 
