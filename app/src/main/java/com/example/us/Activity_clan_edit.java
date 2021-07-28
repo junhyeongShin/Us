@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import de.hdodenhof.circleimageview.CircleImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,8 +79,8 @@ public class Activity_clan_edit extends AppCompatActivity {
                     //이미지 부분 json 파싱된 uri를 이용해 이미지 표시
                     clan_img_path = jsonObject_img_decode.getString("img_path");
 
-                    ImageLoadTask imageLoadTask = new ImageLoadTask(server_info_url+"/Data/img_file/"+clan_img_path,imageView_clan_add);
-                    imageLoadTask.execute();
+                    Glide.with(imageView_clan_add.getContext()).load(server_info.getInstance().getURL_IMG()+clan_img_path).into(imageView_clan_add);
+
 
                     System.out.println("img url : " + Uri.parse(server_info_url+"/Data/img_file/"+clan_img_path));
                 } catch (JSONException e) {

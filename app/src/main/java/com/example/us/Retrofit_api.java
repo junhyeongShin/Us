@@ -1,6 +1,10 @@
 package com.example.us;
 
+import com.example.us.Message.Message;
 import com.example.us.Post;
+import com.example.us.wowza.live_stream;
+import com.example.us.wowza.live_stream_list;
+import com.example.us.wowza.live_streams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.w3c.dom.Comment;
@@ -19,10 +23,16 @@ public interface Retrofit_api {
     Call<List<Post>> getData(@Query("userId") String id);
 
     @GET("/Data/board/board_list.php")
-    Call<List<Board_list>> getData_board(@Query("user_id") int id, @Query("category") String category, @Query("request_list") String list);
+    Call<List<Board_list>> getData_board_all();
+
+    @GET("/Data/board/board_list.php")
+    Call<List<Board_list>> getData_board_category(@Query("category") String category);
+
+    @GET("/Data/board/board_list_my.php")
+    Call<List<Board_list>> get_board_list_my(@Query("user_id") int id);
 
     @GET("/Data/board/board.php")
-    Call<Board_view_item> getData_board_view(@Query("user_id") int user_id,@Query("id") int id);
+    Call<List<Board_view_item>> getData_board_view(@Query("id") int id);
 
     @GET("/Data/img_file/get_imgfile.php")
     Call<String> getData_img(@Query("img_porfile") int img_porfile);
@@ -42,6 +52,9 @@ public interface Retrofit_api {
     @GET("/Data/board/comment_list.php")
     Call<List<comment>> getData_comment_list(@Query("board_id") int board_id);
 
+    @GET("/Data/board/comment_list_my.php")
+    Call<List<comment>> comment_list_my(@Query("user_id") int user_id);
+
     @GET("/Data/board/re_comment_list.php")
     Call<List<re_comment>> getData_re_comment_list(@Query("comment_id") int comment_id);
 
@@ -51,8 +64,14 @@ public interface Retrofit_api {
     @GET("/Data/friend_find_list.php")
     Call<List<User_list_item>> getFind_list(@Query("id") int id);
 
+    @GET("/Data/friend_list_invite.php")
+    Call<List<friend_list_item>> get_friend_list_for_invite(@Query("user_id") int user_id,@Query("chat_id") int chat_id);
+
     @GET("/Data/friend_list.php")
-    Call<List<User_list_item>> getFriend_list(@Query("id") int id);
+    Call<List<friend_list_item>> getFriend_list(@Query("id") int id);
+
+    @GET("/Data/friend_list_not.php")
+    Call<List<User_list_item>> getFriend_list_not(@Query("user_id") int user_id);
 
     @GET("/Data/friend_add.php")
     Call<String> Add_Friend(@Query("id") int id,@Query("friend_id") int friend_id);
@@ -66,11 +85,12 @@ public interface Retrofit_api {
     @GET("/Data/Clan/clan_list.php")
     Call<List<Clan_item>> getClan_list();
 
+    @GET("/Data/Chat/msg_list.php")
+    Call<List<Message>> get_msg_list(@Query("id") int id);
+
 
     @GET("/Data/Clan/clan_list_search.php")
     Call<List<Clan_item>> getClan_list_search(@Query("search") String search);
-
-
 
     @GET("/Data/Clan/clan_list_user.php")
     Call<List<Clan_item>> getClan_list_user(@Query("id") int id);
@@ -90,8 +110,17 @@ public interface Retrofit_api {
     @GET("/Data/Clan/clan_user_out.php")
     Call<String> user_out(@Query("user_id") int user_id,@Query("clan_id") int clan_id);
 
+    @GET("/Data/wowza/streaming_list.php")
+    Call<List<live_stream>> get_live_streams();
 
+    @GET("/get_live_stream")
+    Call<live_stream> get_live_stream(@Query("id") String id);
 
+    @GET("/state_live_streaming")
+    Call<String> state_live_stream(@Query("id") String id);
+
+    @GET("/get_thumbnail")
+    Call<String> get_thumbnail(@Query("id") String id);
 
 
     //포스트 기본형

@@ -32,8 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Activity_friend_list_del extends AppCompatActivity {
 
     private static final String TAG = "Activity_friend_list : ";
-    ArrayList<User_list_item> User_list_item;
-    ArrayList<User_list_item> User_list_item_search;
+    ArrayList<friend_list_item> friend_list_item;
+    ArrayList<friend_list_item> friend_list_item_search;
     private friend_list_adapter friend_list_adapter;
     private RecyclerView recyclerView_friend;
 
@@ -95,29 +95,29 @@ public class Activity_friend_list_del extends AppCompatActivity {
 
     }
 
-    private void init(final ArrayList<User_list_item> user_list_item){
+    private void init(final ArrayList<friend_list_item> friend_list_item){
         System.out.println("Adapter start init");
 
-        final ArrayList<User_list_item> user_list_item_total = user_list_item;
-        ArrayList<User_list_item> user_list_item_view = null;
+        final ArrayList<friend_list_item> friend_list_item_total = friend_list_item;
+        ArrayList<friend_list_item> friend_list_item_view = null;
 
 
         final int current_page = 0;
-        final int last_page = user_list_item_total.size();
+        final int last_page = friend_list_item_total.size();
 
-        if(user_list_item_total.size()<20){
+        if(friend_list_item_total.size()<20){
             System.out.println("총 아이템 수 20 이하일때");
 
-            user_list_item_view = user_list_item_total;
+            friend_list_item_view = friend_list_item_total;
 
-            friend_list_adapter = new friend_list_adapter(user_list_item);
+            friend_list_adapter = new friend_list_adapter(friend_list_item);
             friend_list_adapter.notifyDataSetChanged();
             recyclerView_friend.setAdapter(friend_list_adapter);
 
         }else {
             System.out.println("총 아이템 수 20 이상일때");
 
-            final ArrayList<com.example.us.User_list_item> finalUser_list_item_view = user_list_item_view;
+            final ArrayList<com.example.us.friend_list_item> final_friend_list_item_view = friend_list_item_view;
             recyclerView_friend.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -138,7 +138,7 @@ public class Activity_friend_list_del extends AppCompatActivity {
 
 
                         for(int i=current_page; i<last_page; i++) {
-                            finalUser_list_item_view.add(user_list_item_total.get(current_page));
+                            final_friend_list_item_view.add(friend_list_item_total.get(current_page));
                         }
 
                     }else {
@@ -147,12 +147,12 @@ public class Activity_friend_list_del extends AppCompatActivity {
                         int page = current_page+20;
 
                         for(int i=current_page; i<page; i++) {
-                            finalUser_list_item_view.add(user_list_item_total.get(current_page));
+                            final_friend_list_item_view.add(friend_list_item_total.get(current_page));
                         }
 
                     }
 
-                    friend_list_adapter = new friend_list_adapter(finalUser_list_item_view);
+                    friend_list_adapter = new friend_list_adapter(final_friend_list_item_view);
                     friend_list_adapter.notifyDataSetChanged();
                     recyclerView_friend.setAdapter(friend_list_adapter);
 
@@ -170,28 +170,28 @@ public class Activity_friend_list_del extends AppCompatActivity {
     // 검색을 수행하는 메소드
     public void search(String charText) {
 
-        User_list_item_search = new ArrayList<>();
+        friend_list_item_search = new ArrayList<>();
 
         // 문자 입력이 없을때는 모든 데이터를 보여준다.
         if (charText.length() == 0) {
             System.out.println("문자 입력이 없을때");
-            init(User_list_item);
+            init(friend_list_item);
         }
         // 문자 입력을 할때..
         else
         {
             // 리스트의 모든 데이터를 검색한다.
-            for(int i = 0;i < User_list_item.size(); i++)
+            for(int i = 0;i < friend_list_item.size(); i++)
             {
                 // arraylist의 모든 데이터에 입력받은 단어(charText)가 포함되어 있으면 true를 반환한다.
-                if (User_list_item.get(i).getUser_name().toLowerCase().contains(charText))
+                if (friend_list_item.get(i).getUser_name().toLowerCase().contains(charText))
                 {
                     // 검색된 데이터를 리스트에 추가한다.
-                    User_list_item_search.add(User_list_item.get(i));
+                    friend_list_item_search.add(friend_list_item.get(i));
                 }
             }
             // 리스트 데이터가 변경되었으므로 아답터를 갱신하여 검색된 데이터를 화면에 보여준다.
-            init(User_list_item_search);
+            init(friend_list_item_search);
         }
     }
 
@@ -211,17 +211,17 @@ public class Activity_friend_list_del extends AppCompatActivity {
 
         Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);
 
-        retrofit_api.getFriend_list(user_info.getInstance().getUser_index_number()).enqueue(new Callback<List<User_list_item>>() {
+        retrofit_api.getFriend_list(user_info.getInstance().getUser_index_number()).enqueue(new Callback<List<friend_list_item>>() {
             @Override
-            public void onResponse(Call<List<User_list_item>> call, Response<List<User_list_item>> response) {
+            public void onResponse(Call<List<friend_list_item>> call, Response<List<friend_list_item>> response) {
                 System.out.println("onResponse : call"+call);
                 System.out.println("onResponse : response"+response);
                 if(response.isSuccessful()){
-                    List<User_list_item> list = response.body();
+                    List<friend_list_item> list = response.body();
                     System.out.println("친구 리사이클러뷰 데이터 수신 성공");
 
-                    User_list_item = (ArrayList<com.example.us.User_list_item>) list;
-                    init(User_list_item);
+                    friend_list_item = (ArrayList<com.example.us.friend_list_item>) list;
+                    init(friend_list_item);
 
 //                    for(int i=0; i<User_list_item.size(); i++) {
 //                        System.out.println(User_list_item.get(i).getId());
@@ -233,7 +233,7 @@ public class Activity_friend_list_del extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<User_list_item>> call, Throwable t) {
+            public void onFailure(Call<List<friend_list_item>> call, Throwable t) {
                 System.out.println("실패 Throwable : "+t.toString());
                 System.out.println("실패 call : "+call.toString());
             }

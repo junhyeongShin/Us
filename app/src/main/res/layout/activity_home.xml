@@ -9,49 +9,64 @@
         tools:context=".MainActivity">
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-    android:orientation="horizontal"
+                  android:orientation="horizontal"
                   android:background="#ffffff"
-
     >
 
         <ImageView android:layout_width="wrap_content" android:layout_height="100dp"
                    android:src="@drawable/logo_de_warcraft"
                    android:layout_weight="1"
                    android:scaleType="fitXY"
-
         />
 
     </LinearLayout>
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:id="@+id/btn_test_for_service"
-            android:text="btn_test_for_service"
-    />
 
+<!--    현재 진행중인 방송-->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_layout_streaming"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/recyclerview_streaming"
+                android:layout_height="match_parent"
+        />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-<!--    하단 네비-->
+    <!--    하단 네비-->
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_gravity="bottom"
     >
+
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_bottom_home"
-                android:text="홈"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_weight="1" android:background="@drawable/background_text_sub_bar_blue">
+                android:layout_weight="1"
+                android:text="방송"
+                android:background="@drawable/background_text_sub_bar_blue"
+        >
         </Button>
+
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_bottom_guild"
                 android:text="클랜"
                 android:textSize="18sp"
+                android:visibility="gone"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
                 android:layout_weight="1" android:background="@drawable/background_text_sub_bar_gray">
 
         </Button>
+
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_bottom_chat"
@@ -69,7 +84,9 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                android:layout_weight="1" android:background="@drawable/background_text_sub_bar_gray">
+                android:layout_weight="1"
+                android:background="@drawable/background_text_sub_bar_gray"
+        >
 
         </Button>
         <Button android:layout_width="match_parent"

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Activity_streaming_list">
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_text_sub_bar_gray"
+            app:titleTextColor="#ffffff"
+            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/toolbar">
+
+        <ImageButton android:layout_width="50dp"
+                     android:layout_height="50dp"
+                     android:id="@+id/ibtn_streaming_list_back"
+                     android:background="@drawable/background_corner"
+                     android:src="@drawable/btn_back_toolbar"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:text="방송 목록 보기"
+                  android:textColor="#ffffff"
+                  android:textSize="28sp"
+                  android:maxLines="1"
+                  android:ellipsize="end"
+                  android:layout_marginLeft="30dp"
+        />
+    </androidx.appcompat.widget.Toolbar>
+<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/SwipeRefreshLayout_streaming_list"-->
+<!--            >-->
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/recyclerview_streaming"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+        />
+<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
+</LinearLayout>

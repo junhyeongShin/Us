@@ -54,6 +54,7 @@ public class Activity_clan extends AppCompatActivity {
                 System.out.println("클랜 찾아보기 클릭");
                 Intent mIntent = new Intent(getApplicationContext(), Activity_clan_search.class);
                 startActivity(mIntent);
+
             }
         });
 

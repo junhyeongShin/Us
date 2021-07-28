@@ -62,7 +62,7 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
         //어뎁터를 이용해서 value - string - spinner_category 지정해놓은 값 불러옴.
         Spinner spinner_board_add_category = findViewById(R.id.spinner_board_add_category);
         ArrayAdapter<CharSequence> adapter_spinner = ArrayAdapter.createFromResource(this,
-                R.array.spinner_category, R.layout.spinner_item_category);
+                R.array.spinner_category_add, R.layout.spinner_item_category);
         adapter_spinner.setDropDownViewResource(R.layout.spinner_dropdown_category);
         spinner_board_add_category.setAdapter(adapter_spinner);
         spinner_board_add_category.setOnItemSelectedListener(this);
@@ -145,7 +145,7 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
 
 
 
-        new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Post_to_server post_to_server = new Post_to_server();
@@ -168,9 +168,16 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        thread.start();
 
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
+                    finish();
 
                 }
             }
@@ -507,7 +514,7 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
 //                    in.close();
 //
                     // 이미지 uri 받아오기
-                    System.out.println("data.getData() : " + data.getData());
+//                    System.out.println("data.getData() : " + data.getData());
                     img_url = getRealPathFromURI(data.getData());
 
                     //이미지 업로드
@@ -532,7 +539,7 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
             if (resultCode == RESULT_OK) {
                 try {
                     // 동영상 uri 받아오기
-                    System.out.println("data.getData() : " + data.getData());
+//                    System.out.println("data.getData() : " + data.getData());
                     img_url = getRealPathFromURI(data.getData());
 
                     //동영상 업로드
@@ -586,6 +593,7 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(smr);
 
+
         System.out.println("imageUpload end");
     }
 
@@ -623,6 +631,7 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             }
+
         });
         smr.addFile("video", videoPath);
 
@@ -635,13 +644,14 @@ public class Activity_board_add extends AppCompatActivity implements AdapterView
     //업로드 하기위한 경로로 변경
     public String getRealPathFromURI(Uri uri) {
         int index = 0;
-        System.out.println("getRealPathFromURI uri : " + uri);
+
         String[] proj = {MediaStore.Images.Media.DATA}; // 이미지 경로로 해당 이미지에 대한 정보를 가지고 있는 cursor 호출
         Cursor cursor = getContentResolver().query(uri, proj, null, null, null); // 데이터가 있으면(가장 처음에 위치한 레코드를 가리킴)
         if (cursor.moveToFirst()) { // 해당 필드의 인덱스를 반환하고, 존재하지 않을 경우 예외를 발생시킨다.
             index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         }
         Log.d("getRealPathFromURI", "getRealPathFromURI: " + cursor.getString(index));
+        System.out.println("getRealPathFromURI uri : " + cursor.getString(index));
         return cursor.getString(index);
     }
 

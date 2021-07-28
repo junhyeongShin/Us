@@ -8,9 +8,11 @@
                android:src="@drawable/ic_baseline_subdirectory_arrow_right_24"
 
     />
-    <de.hdodenhof.circleimageview.CircleImageView android:layout_width="60dp"
+    <de.hdodenhof.circleimageview.CircleImageView android:layout_width="40dp"
+                                                  android:layout_margin="5dp"
+                                                  android:layout_gravity="center_vertical"
                                                   android:id="@+id/circleimage_re_comment"
-                                                  android:layout_height="60dp"/>
+                                                  android:layout_height="40dp"/>
     <LinearLayout android:layout_width="0dp"
                   android:orientation="vertical"
                   android:layout_weight="1"
@@ -22,6 +24,7 @@
                       android:textSize="14sp"
                       android:textStyle="bold"
                       android:text="textview_re_comment_username"
+                      android:textColor="#000"
                       android:id="@+id/textview_re_comment_username"
                       android:layout_weight="1"
             />
@@ -35,6 +38,8 @@
                   android:textSize="20sp"
                   android:layout_weight="1"
                   android:text="textview_re_comment_content"
+                  android:textColor="#000"
+                  android:fontFamily="@font/army_font"
                   android:id="@+id/textview_re_comment_content"
         />
 <!--        <ImageButton android:layout_width="36dp" android:layout_height="36dp"-->

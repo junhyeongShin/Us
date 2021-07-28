@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+//FCM
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -12,7 +15,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,6 +29,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -49,7 +53,7 @@ dependencies {
     //에디터 라이브러리
 
     implementation 'jp.wasabeef:richeditor-android:2.0.0'
-//이미지 둥글게
+    //이미지 둥글게
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
@@ -57,4 +61,37 @@ dependencies {
     implementation 'dev.dworks.libs:volleyplus:+'
     implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
 
+
+    //노티피케이션
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "androidx.core:core:1.0.2"
+    implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
+
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0' //Glide 라이브러리
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0' //Glide 라이브러리
+
+    //noinspection GradleCompatible
+    compile 'com.android.support:support-v4:23.4.0' //당겨서 새로고침
+
+    //FCM
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation platform('com.google.firebase:firebase-bom:28.2.1')
+    implementation 'com.google.firebase:firebase-inappmessaging-display'
+    implementation 'com.google.firebase:firebase-messaging'
+
+    //fab  버튼
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0'
+
+}
+
+repositories {
+    google()
+    jcenter()
 }

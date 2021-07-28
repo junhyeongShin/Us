@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_marginTop="10dp"
               android:layout_width="match_parent"
@@ -10,10 +10,12 @@
                   android:layout_height="wrap_content"
                   android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView android:layout_width="60dp"
+        <de.hdodenhof.circleimageview.CircleImageView android:layout_width="40dp"
+                                                      android:layout_margin="5dp"
                                                       android:src="@drawable/basic_img"
                                                       android:id="@+id/circleimage_comment"
-                                                      android:layout_height="60dp"/>
+                                                      android:layout_gravity="center_vertical"
+                                                      android:layout_height="40dp"/>
     <LinearLayout android:layout_width="0dp"
                   android:orientation="vertical"
                   android:layout_weight="1"
@@ -31,13 +33,17 @@
             />
 
         </LinearLayout>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+
+        <TextView android:layout_width="0dp"
+                  android:layout_height="wrap_content"
                   android:textSize="20sp"
                   android:layout_weight="1"
                   android:text="textview_comment_content"
+                  android:textColor="#000"
                   android:id="@+id/textview_comment_content"
         />
 
@@ -63,6 +69,7 @@
 <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                            android:layout_height="wrap_content"
                                            android:id="@+id/re_comment"
+                                           app:layout_constrainedHeight="true"
 />
     <!--    대댓글 리사이클러뷰 종료-->
 

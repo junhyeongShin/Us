@@ -27,6 +27,10 @@ public class Activity_more extends AppCompatActivity {
     TextView textView_more_id;
     TextView textView_more_name;
 
+//    btn_more_my_board
+//    btn_more_my_comment
+//    btn_more_alarm
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onResume() {
@@ -45,8 +49,6 @@ public class Activity_more extends AppCompatActivity {
         textView_more_id = findViewById(R.id.textView_more_id);
         textView_more_name = findViewById(R.id.textView_more_name);
 
-        textView_more_id.setText("ID : " + user_info.getInstance().getUser_ID());
-        textView_more_name.setText("name : " + user_info.getInstance().getUser_name());
 
 //        imageView_more_profile.setBackground(new ShapeDrawable(new OvalShape()));
 //        imageView_more_profile.setClipToOutline(true);
@@ -90,11 +92,30 @@ public class Activity_more extends AppCompatActivity {
 
 
 
+
         Button btn_more_profile = findViewById(R.id.btn_more_profile);
         btn_more_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(getApplicationContext(), Activity_edit_userdata.class);
+                startActivity(mIntent);
+            }
+        });
+
+        Button btn_more_my_board = findViewById(R.id.btn_more_my_board);
+        btn_more_my_board.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(getApplicationContext(), Activity_my_board.class);
+                startActivity(mIntent);
+            }
+        });
+
+        Button btn_more_my_comment = findViewById(R.id.btn_more_my_comment);
+        btn_more_my_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(getApplicationContext(), Activity_my_comment.class);
                 startActivity(mIntent);
             }
         });
@@ -179,6 +200,9 @@ public class Activity_more extends AppCompatActivity {
 
             }
         }).start();
+
+        textView_more_id.setText("ID : " + user_info.getInstance().getUser_ID());
+        textView_more_name.setText("name : " + user_info.getInstance().getUser_name());
 
 
     }

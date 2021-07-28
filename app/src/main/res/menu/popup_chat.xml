@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/menu_chat_invite"
+            android:title="친 구 초 대"/>
+    <item
+            android:id="@+id/menu_chat_out"
+            android:title="채 팅 방  나 가 기"/>
+
+
+</menu>

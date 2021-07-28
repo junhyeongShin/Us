@@ -4,7 +4,10 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="wrap_content"
 >
-<de.hdodenhof.circleimageview.CircleImageView android:layout_width="80dp" android:layout_height="80dp"
+<de.hdodenhof.circleimageview.CircleImageView android:layout_width="60dp" android:layout_height="60dp"
+                                              android:padding="5dp"
+                                              android:layout_marginRight="10dp"
+                                              android:layout_gravity="center_vertical"
             android:id="@+id/imageview_join_list_item"
            android:src="@drawable/basic_img"
 
@@ -17,14 +20,16 @@
 
     <TextView android:layout_width="wrap_content" android:layout_height="50dp"
     android:id="@+id/textview_join_list_name"
-              android:textSize="24sp"
+              android:textSize="20sp"
               android:gravity="center"
+              android:textColor="#000"
               android:textStyle="bold"
               android:text="닉네임"
     />
     <TextView android:layout_width="wrap_content" android:layout_height="30dp"
               android:id="@+id/textview_join_list_intro"
-              android:textSize="20sp"
+              android:textSize="16sp"
+              android:textColor="#000"
               android:gravity="center"
               android:text="소개"
               android:maxLines="1"

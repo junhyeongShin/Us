@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,7 +43,9 @@ public class RecyclerAdapter_recomment extends RecyclerView.Adapter<RecyclerAdap
     @NotNull
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+
         context = parent.getContext() ;
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
         View view = inflater.inflate(R.layout.re_comment, parent, false) ;
@@ -56,110 +59,27 @@ public class RecyclerAdapter_recomment extends RecyclerView.Adapter<RecyclerAdap
     public void onBindViewHolder(@NonNull @NotNull final RecyclerAdapter.ViewHolder holder, final int position) {
 
 
-
-        final RecyclerAdapter.ViewHolder viewHolder = holder;
-
         holder.textview_re_comment_content.setText(mData_re.get(position).getContent());
         holder.textview_re_comment_username.setText(mData_re.get(position).getUsername());
 
+        String user_img_path;
+
+        if(mData_re.get(position).getImg_url().equals("0")){
+           user_img_path = "basic_img.png";
+        }else {
+            user_img_path = mData_re.get(position).getImg_url();
+        }
+        Glide.with(holder.circleimage_re_comment.getContext())
+                .load(server_info.getInstance().getURL_IMG() +user_img_path)
+                .into(holder.circleimage_re_comment);
 
 
 
-//        // 접속 유저와 댓글을 작성한 유저가 동일할시에 수정 및 삭제 버튼 표시
-//        if(mData_re.get(position).getUser_id()==user_info.getInstance().getUser_index_number()){
-//            holder.ibtn_re_comment_edit.setVisibility(0);
-//            holder.ibtn_re_comment_delete.setVisibility(0);
-//        }
-
-
-
-        // 프로필 이미지 적용.
-        final Post_to_server post_to_server =new Post_to_server();
-
-
-        // 서버에 데이터 요청 후, 각 이미지 및 텍스트에 적용하는 쓰레드
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                String user_img_path = "";
-
-                //포스트로 데이터 요청.
-                String result_user_data = post_to_server.post_get_img_id("/Data/get_user_img.php", mData_re.get(position).getUser_id());
-
-                try {
-                    JSONObject jsonObject = new JSONObject(result_user_data);
-                    String result_img_data_decode =  jsonObject.getString("result_img");
-                    JSONObject jsonObject_img_decode = new JSONObject(result_img_data_decode);
-
-
-                    //이미지 부분 json 파싱된 uri를 이용해 이미지 표시
-                    user_img_path = jsonObject_img_decode.getString("img_path");
-
-                    ImageLoadTask imageLoadTask = new ImageLoadTask(server_info.getInstance().getURL() +"/Data/img_file/"+user_img_path,holder.circleimage_re_comment);
-                    imageLoadTask.execute();
-
-                    System.out.println("댓글 프로필 이미지 url : "+server_info.getInstance().getURL() +"/Data/img_file/"+user_img_path);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-
-                    //실패했을시 기본 이미지 적용
-                    user_img_path = "basic_img.png";
-
-                    System.out.println("댓글 프로필 이미지 불러오기 실패");
-                    System.out.println("댓글 프로필 이미지 url : "+server_info.getInstance().getURL() +"/Data/img_file/"+user_img_path);
-
-                    ImageLoadTask imageLoadTask = new ImageLoadTask(server_info.getInstance().getURL() +"/Data/img_file/"+user_img_path,holder.circleimage_re_comment);
-                    imageLoadTask.execute();
-                }
-
-            }
-        }).start();
-
-
-//        // 클릭이벤트 추가
-//        holder.ibtn_re_comment_edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println(TAG+"ibtn_comment_edit");
-//
-//                Intent mIntent = new Intent(context, Activity_re_comment_edit.class);
-//
-//                mIntent.putExtra("id",mData_re.get(position).getId());
-//                mIntent.putExtra("content",mData_re.get(position).getContent());
-//
-//                context.startActivity(mIntent);
-//
-//            }
-//        });
-//
-//        holder.ibtn_re_comment_delete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                delete_item(position);
-//                System.out.println(TAG+"ibtn_comment_delete");
-//            }
-//        });
-
-//        holder.ibtn_re_comment_add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                System.out.println(TAG+"ibtn_commment_re_add");
-//
-//                Intent mIntent = new Intent(context, Activity_re_comment_add.class);
-//                mIntent.putExtra("comment_id",comment_id);
-//                mIntent.putExtra("content",mData_re.get(position).getContent());
-//                context.startActivity(mIntent);
-//
-//            }
-//        });
         if(mData_re.get(position).getUser_id()==user_info.getInstance().getUser_index_number()) {
             holder.ibtn_re_comment_menu.setVisibility(View.VISIBLE);
         }
 
-            holder.ibtn_re_comment_menu.setOnClickListener(new View.OnClickListener() {
+        holder.ibtn_re_comment_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("댓글 메뉴 버튼 클릭");
@@ -194,7 +114,7 @@ public class RecyclerAdapter_recomment extends RecyclerView.Adapter<RecyclerAdap
         });
 
         String str = String.valueOf(position);
-        Log.i("onBindViewHoler",str);
+        Log.i("onBindViewHoler 대댓글",str);
 
 
     }
@@ -247,7 +167,7 @@ public class RecyclerAdapter_recomment extends RecyclerView.Adapter<RecyclerAdap
                     public void onResponse(Call<String> call, Response<String> response) {
                         if(response.isSuccessful()){
                             String data = response.body();
-                            System.out.println("성공");
+                            System.out.println("대 댓글 삭제 성공 : "+mData_re.get(position).getId());
                             System.out.println(data);
 
                             mData_re.remove(mData_re.get(position));
@@ -257,7 +177,8 @@ public class RecyclerAdapter_recomment extends RecyclerView.Adapter<RecyclerAdap
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                        System.out.println("실패");
+                        System.out.println("대 댓글 삭제 실패 : "+call);
+                        System.out.println("대 댓글 삭제 실패 : "+t);
                     }
                 });
 
@@ -281,61 +202,10 @@ public class RecyclerAdapter_recomment extends RecyclerView.Adapter<RecyclerAdap
 
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
-    // 아이템 뷰를 저장하는 뷰홀더 클래스.
-//    public class ViewHolder_recomment extends RecyclerView.ViewHolder{
-//        TextView textview_re_comment_username;
-//        TextView textview_re_comment_content;
-//        CircleImageView circleimage_re_comment;
-////        TextView textview_re_comment_etc;
-//        ImageButton ibtn_re_comment_edit;
-//        ImageButton ibtn_re_comment_delete;
-////        ImageButton ibtn_re_comment_add;
-//
-//
-//
-//        ViewHolder_recomment(View vh) {
-//            super(vh) ;
-//            // 뷰 객체에 연결
-//            textview_re_comment_username =  vh.findViewById(R.id.textview_re_comment_username);
-//            textview_re_comment_content =  vh.findViewById(R.id.textview_re_comment_content);
-////            textview_re_comment_etc =  itemView.findViewById(R.id.textview_re_comment_etc);
-//            ibtn_re_comment_edit =  vh.findViewById(R.id.ibtn_re_comment_edit);
-//            ibtn_re_comment_delete =  vh.findViewById(R.id.ibtn_re_comment_delete);
-////            ibtn_re_comment_add = vh.findViewById(R.id.ibtn_re_comment_add);
-//
-//            circleimage_re_comment = vh.findViewById(R.id.circleimage_re_comment);
-//            // 클릭이벤트 추가
-//            ibtn_re_comment_edit.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //TODO: 버튼 클릭시 수정
-////                    v.getId();
-//                    System.out.println(TAG+"ibtn_comment_edit");
-//
-//                }
-//            });
-//
-//            ibtn_re_comment_delete.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //TODO:버튼 클릭시 삭제
-////                    v.getId();
-//                    System.out.println(TAG+"ibtn_comment_delete");
-//
-//                }
-//            });
-//
-////            ibtn_re_comment_add.setOnClickListener(new View.OnClickListener() {
-////                @Override
-////                public void onClick(View v) {
-////
-////                    System.out.println(TAG+"ibtn_re_comment_add id : "+v.getId());
-////
-////                }
-////            });
-//
-//        }
-//    }
 
 }

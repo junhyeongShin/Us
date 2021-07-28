@@ -20,6 +20,13 @@ public class Activity_edit_userdata extends AppCompatActivity {
     String user_id = user_info.getInstance().getUser_ID();
     CircleImageView imageView_edit;
 
+    TextView TextView_edit_id;
+    TextView TextView_edit_detail;
+    TextView TextView_edit_name;
+
+    String user_name = "";
+    String user_intro = "";
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -39,7 +46,11 @@ public class Activity_edit_userdata extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        init();
+        try {
+            init();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         System.out.println(TAG+"onStart");
     }
@@ -109,24 +120,29 @@ public class Activity_edit_userdata extends AppCompatActivity {
             }
         });
 
+        TextView_edit_id = findViewById(R.id.TextView_edit_id);
+        TextView_edit_detail = findViewById(R.id.TextView_edit_detail);
+        TextView_edit_name = findViewById(R.id.TextView_edit_name);
+
+
+
+
     }
 
     //액티비티 실행시 필요한 데이터 (유저 아이디, 이름, 자기소개, 프로필 사진)
     //요청해서 각 레이아웃에 적용
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    void init(){
+    void init() throws InterruptedException {
 
 
         final Post_to_server post_to_server =new Post_to_server();
 
 
         // 서버에 데이터 요청 후, 각 이미지 및 텍스트에 적용하는 쓰레드
-        new Thread(new Runnable() {
+        Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                String user_name = "";
-                String user_intro = "";
                 String user_img_path = "";
 
                 //포스트로 데이터 요청.
@@ -140,15 +156,6 @@ public class Activity_edit_userdata extends AppCompatActivity {
                     JSONObject jsonObject_decode = new JSONObject(result_user_data_decode);
                     user_name = jsonObject_decode.getString("username");
                     user_intro = jsonObject_decode.getString("intro_profile");
-
-                    TextView TextView_edit_id = findViewById(R.id.TextView_edit_id);
-                    TextView_edit_id.setText("ID : "+user_id);
-
-                    TextView TextView_edit_name = findViewById(R.id.TextView_edit_name);
-                    TextView_edit_name.setText("닉네임 : "+user_name);
-
-                    TextView TextView_edit_detail = findViewById(R.id.TextView_edit_detail);
-                    TextView_edit_detail.setText("소개 : "+user_intro);
 
                     String result_img_data_decode =  jsonObject.getString("result_img");
                     JSONObject jsonObject_img_decode = new JSONObject(result_img_data_decode);
@@ -166,8 +173,26 @@ public class Activity_edit_userdata extends AppCompatActivity {
                 }
 
             }
-        }).start();
+        });
+
+        th.start();
+
+        th.join();
+
+        init_text();
 
 
+    }
+
+    void init_text(){
+        TextView_edit_id.setText("ID : "+user_id);
+
+        TextView_edit_name.setText("닉네임 : "+user_name);
+
+        if(user_intro!=null){
+            TextView_edit_detail.setText("소개 : "+user_intro);
+        }else{
+            TextView_edit_detail.setText("소개 : 소개가 없습니다.");
+        }
     }
 }

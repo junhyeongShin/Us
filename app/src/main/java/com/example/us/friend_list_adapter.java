@@ -27,9 +27,9 @@ import java.util.List;
 
 public class friend_list_adapter extends RecyclerView.Adapter<friend_list_adapter.ViewHolder>{
 
-    private List<User_list_item> Items;
+    private List<friend_list_item> Items;
 
-    public friend_list_adapter(List<User_list_item> Items) {
+    public friend_list_adapter(List<friend_list_item> Items) {
         this.Items = Items;
     }
 
@@ -57,8 +57,6 @@ public class friend_list_adapter extends RecyclerView.Adapter<friend_list_adapte
             @Override
             public void onClick(View v) {
                 System.out.println("이미지 포지션 클릭 / 포지션 값 : "+position);
-
-
 
             }
         });

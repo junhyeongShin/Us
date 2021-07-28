@@ -219,7 +219,7 @@ public class Activity_friend_list extends AppCompatActivity {
 
         Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);
 
-        retrofit_api.getUser_list().enqueue(new Callback<List<User_list_item>>() {
+        retrofit_api.getFriend_list_not(user_info.getInstance().getUser_index_number()).enqueue(new Callback<List<User_list_item>>() {
             @Override
             public void onResponse(Call<List<User_list_item>> call, Response<List<User_list_item>> response) {
                 System.out.println("onResponse : call"+call);

@@ -31,6 +31,11 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.ViewHolder>{
         this.Items = Items;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     @NonNull
     @Override
     public BasicAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,7 +46,6 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull BasicAdapter.ViewHolder holder, final int position) {
-        holder.id = Items.get(position).getId();
         holder.textview_friend_list_name.setText(Items.get(position).getUser_name());
         holder.textview_friend_list_intro.setText(Items.get(position).getUser_intro());
 
@@ -79,7 +83,7 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        int id;
+
         TextView textview_friend_list_name;
         TextView textview_friend_list_intro;
         ImageButton ibtn_friend_list_add;
@@ -92,7 +96,6 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.ViewHolder>{
             textview_friend_list_name = itemView.findViewById(R.id.textview_friend_list_name);
             textview_friend_list_intro = itemView.findViewById(R.id.textview_friend_list_intro);
             ibtn_friend_list_add = itemView.findViewById(R.id.ibtn_friend_list_add);
-            imageview_friend_list_item = itemView.findViewById(R.id.imageview_friend_list_item);
         }
 
 
@@ -105,7 +108,7 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.ViewHolder>{
         notifyDataSetChanged();
     }
 
-    public void add_friend(final int position){
+    public void add_friend(int position){
         System.out.println("친구 프로필 추가");
 
         System.out.println("친구 user_id 값 : "+Items.get(position).getId());
@@ -122,7 +125,6 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.ViewHolder>{
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
-                    String data = response.body();
                     System.out.println("Add_Friend: 성공");
                     del_item(position);
                 }

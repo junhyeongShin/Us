@@ -52,7 +52,7 @@
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_bottom_home"
-                android:text="홈"
+                android:text="방송"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -65,6 +65,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
+                android:visibility="gone"
                 android:layout_weight="1" android:background="@drawable/background_text_sub_bar_gray">
 
         </Button>

@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -43,8 +44,12 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             for(MyButton button:buttonList){
-                if(button.onClick(e.getX(),e.getY()))
-                    break;
+                try {
+                    if(button.onClick(e.getX(),e.getY()))
+                        break;
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
             return super.onSingleTapUp(e);
         }
@@ -129,7 +134,7 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
             resources= context.getResources();
         }// MyButton()..
 
-        public boolean onClick(float x, float y){
+        public boolean onClick(float x, float y) throws IOException {
             if(clickRegion != null && clickRegion.contains(x,y) ){
                 listener.onClick(pos);
                 return true;

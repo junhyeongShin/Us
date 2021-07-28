@@ -1,9 +1,14 @@
 package com.example.us;
 
-import android.app.Service;
+import android.annotation.SuppressLint;
+import android.app.*;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
-import android.os.IBinder;
+import android.os.*;
+import android.util.Log;
+import android.widget.Toast;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import com.example.us.Message.Message;
 import com.example.us.Message.MessageType;
 import com.google.gson.Gson;
@@ -16,12 +21,26 @@ import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Scanner;
+//      유저의 id값으로 비교 하게끔 변경해야하고, 콘솔 룸 채팅처럼 동작하도록 채팅방 엑티비티 수정 해야함.
+//      그래서 유저의 id값, 채팅방의 id값 을 비교해서 현재 채팅방일 경우 리사이클러뷰에 데이터 추가해주기. (핸들러?)
+//      1. 단순 핸들러를 이용해서 TextView  추가해보기 (레이아웃 스크롤 뷰 로 변경해야함).
+//      2. 리사이클러뷰에 아이템 추가하는 방식으로 해보기.
 
 public class Socket_service extends Service {
 
+    public static Handler handler;
+    NotificationManager Notifi_M;
     public static boolean is_conn;
+    public static int room_id;
     public static ArrayList<Room_item> Room_list;
+    public static Messenger mClient = null;   // Activity 에서 가져온 Messenger
+
+//    SharedPreferences spf = getSharedPreferences("noti", 0); // 0 :MODE_Privte
+
+    private static final String TAG = Socket_service.class.getName()+" : ";
+    private static Gson gson = new Gson();
 
 
     // Binder given to clients
@@ -37,7 +56,6 @@ public class Socket_service extends Service {
             return Socket_service.this;
         }
     }
-
 
     public Socket_service() {
     }
@@ -56,6 +74,8 @@ public class Socket_service extends Service {
             thread.start();
 
         }
+        Notifi_M = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        handler = new myServiceHandler();
 
         return super.onStartCommand(intent, flags, startId);
 
@@ -66,6 +86,10 @@ public class Socket_service extends Service {
         return binder;
     }
 
+    public static IBinder mMessenger_bind(){
+       return mMessenger.getBinder();
+    }
+
     //클라이언트용 메서드 제작해서 사용
     public int getRandomNumber() {
         return 0;
@@ -73,7 +97,6 @@ public class Socket_service extends Service {
 
 
     public void send_message(Message message) throws IOException {
-        System.out.println("서비스 메세지 보내기");
 
         Thread thread = new Thread(){
             public void run(){
@@ -88,10 +111,27 @@ public class Socket_service extends Service {
     }
 
 
-    public static void read_message(Message message) {
-        String read = message.getUserInfoArrayList().get(0).getUser_name() + " : " + message.getContent() + " / " + message.getTime();
 
-        System.out.println(read);
+    public static void read_message(Message message) {
+        // 내 아이디
+        int user_id = user_info.getInstance().getUser_index_number();
+        // 보낸 유저의 아이디
+        int from_user = message.getUserInfoArrayList().get(0).getId();
+
+        //내 아이디와 보낸 유저의 아이디가 같을경우 내 메시지
+        if(user_id == from_user){
+            String read =message.getContent() + " / " + message.getTime();
+            System.out.println(read);
+
+
+        //다를 경우 상대방 메시지
+        } else {
+            String read = message.getUserInfoArrayList().get(0).getUser_name() + " : "
+                    + message.getContent() + " / " + message.getTime();
+            System.out.println(read);
+
+        }
+
     }
 
     @Override
@@ -99,7 +139,6 @@ public class Socket_service extends Service {
         super.onDestroy();
 
     }
-
 
     public static String time() {
         // 현재시간을 msec 으로 구한다.
@@ -109,7 +148,9 @@ public class Socket_service extends Service {
         Date date = new Date(now);
 
         // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
-        SimpleDateFormat SimpleDateFormat_time = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+        @SuppressLint
+        ("SimpleDateFormat") SimpleDateFormat SimpleDateFormat_time
+                = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         // nowDate 변수에 값을 저장한다.
         return SimpleDateFormat_time.format(date);
@@ -136,7 +177,11 @@ public class Socket_service extends Service {
     public ArrayList<Room_item> get_room_list(){
 
         System.out.println("get_room_list : "+Room_list.size());
-        System.out.println("get_room_list 1st : "+Room_list.get(0).getTitle());
+
+        if(Room_list.size()==0){
+            return null;
+        }
+
         return Room_list;
     }
 
@@ -146,7 +191,6 @@ public class Socket_service extends Service {
         private static BufferedReader br = null;
         private static PrintStream ps = null;
         private static Gson gson = new Gson();
-        private static int room_id;
         private static ArrayList<Message> messageArrayList = new ArrayList<>();
         private static User_list_item user;
 
@@ -155,8 +199,9 @@ public class Socket_service extends Service {
             super.run();
 
             s = new Socket();
-//            SocketAddress endpoint = new InetSocketAddress("192.168.56.1", 12345);
-        SocketAddress endpoint = new InetSocketAddress("13.125.205.208", 12345);
+            SocketAddress endpoint = new InetSocketAddress(server_info.getInstance().getURL_service(), 12345);
+            System.out.println(server_info.getInstance().getURL_service());
+//        SocketAddress endpoint = new InetSocketAddress(server_info.getInstance().getURL_service(), 12345);
             try {
                 s.connect(endpoint, 5 * 1000);
                 br = new BufferedReader(new InputStreamReader(s.getInputStream(), "utf-8"));
@@ -166,11 +211,10 @@ public class Socket_service extends Service {
                 e.printStackTrace();
             }
 
-
+            //새로운 메시지 생성 (유저리스트에 유저정보, 시간, 타입, 접속 ip,
             Message message = new Message();
 
             String String_time = time();
-
 
             user = new User_list_item();
             user.setId(user_info.getInstance().getUser_index_number());
@@ -186,21 +230,22 @@ public class Socket_service extends Service {
             message.setContent(getServerIp());
 
             message.setTime(String_time);
+//            System.out.println("------------- 최초 서비스 생성시 메시지 체크 -------------");
+//            System.out.println("유저 정보 : "+user.getUser_name());
+//            System.out.println("시간 : "+message.getTime());
+//            System.out.println("메시지 타입 : "+message.getType());
+//            System.out.println("----------------------------------------------------------------------------");
             String messagesString = gson.toJson(message);
             System.out.println("messagesString : " + messagesString);
             ps.println(messagesString);
-            room_id = 0;
-
 
             Thread thread = new Thread(() -> {
                 try {
                     while (s.isConnected()&&is_conn) {
-
                         String revString = br.readLine();
-
                         if (revString != null) {
-
                             Message message_Get = gson.fromJson(revString, Message.class);
+                            System.out.println("message_Get");
 
                             switch (message_Get.getType()) {
                                 case SUCCESS:
@@ -209,37 +254,92 @@ public class Socket_service extends Service {
                                 case FAIL:
                                     System.out.println("FAIL");
                                     break;
+
+                                case VIDEO:
+                                case IMG:
                                 case MSG:
-                                    System.out.println("MSG");
-                                    if (message_Get.getTo().equals(String.valueOf(room_id))) {
-                                        if (message_Get.getUserInfoArrayList().get(0).getId() != user.getId()) {
-                                            read_message(message_Get);
-                                        } else {
-                                            System.out.println("my MSG");
-                                        }
-                                    } else {
-                                        System.out.println("not room");
-//                                    System.out.println(revString);
+                                case NOTIFICATION:
+
+                                    System.out.println(message_Get.getType());
+
+                                    //if 현재 채팅방이면 노티피케이션을 안주고
+                                    //현재 채팅방이 아니면 노티피케이션을 준다.
+                                    //핸들러에게 메세지를 보낸다.
+                                    System.out.println("message_Get.getRoom_Id() id : "+message_Get.getRoom_Id());
+                                    System.out.println("room id : "+room_id);
+
+                                    //바인드된 액티비티가 있을 경우 보냄.
+                                    if(mClient!=null){
+                                    System.out.println("mClient!=null 입니다.");
+                                    sendMsgToActivity(message_Get);
+                                    }
+
+
+                                    //해당 룸에 있을때는 노티피케이션을 보내지 않음
+                                    if(room_id!=message_Get.getRoom_Id() && message_Get.getType()!=MessageType.NOTIFICATION){
+                                    System.out.println("방 번호가 달라 노티피 케이션을 보냅니다.");
+                                    send_msg_to_notification(message_Get);
                                     }
 
                                     break;
+
                                 case USERLIST:
                                     System.out.println("USERLIST");
                                     if (message_Get.getType() == MessageType.USERLIST) {
                                         System.out.println(message_Get.getContent());
                                     }
                                     break;
-                                case NOTIFICATION:
-                                    System.out.println("NOTIFICATION");
-                                    break;
 
                                 case ROOMLIST:
                                     System.out.println("ROOMLIST");
-                                    read_room_list(message_Get);
+//                                    read_room_list(message_Get);
+
+                                    for(int i=0; i<message_Get.getRoom_list().size(); i++) {
+                                        System.out.println(i+"번째 룸 아이디 : "+message_Get.getRoom_list().get(i).getId());
+                                        System.out.println(i+"번째 룸 제목 : "+message_Get.getRoom_list().get(i).getTitle());
+                                        System.out.println(i+"번째 룸 메시지 : "+message_Get.getRoom_list().get(i).getLast_message().getContent());
+                                        System.out.println(i+"번째 룸 시간 : "+message_Get.getRoom_list().get(i).getLast_message().getTime());
+                                    }
+
+                                    sendMsgToActivity(message_Get);
+
+                                    break;
+                                case CHANGE:
+                                    System.out.println("CHANGE");
+
+                                    break;
+
+                                case CREATEROOM:
+                                    System.out.println("CREATEROOM");
+                                    sendMsgToActivity(message_Get);
+
+                                    break;
+
+                                case MSG_LIST:
+                                    System.out.println("MSG_LIST");
+                                    //잘 왔는지 확인하는 코드
+                                    System.out.println("message_Get.getMsg_list().size() : "+message_Get.getMsg_list().size());
+                                    sendMsgToActivity(message_Get);
 
 
                                     break;
+
+                                case INVITE:
+                                    System.out.println("INVITE");
+                                    sendMsgToActivity(message_Get);
+
+
+                                    break;
+
+                                case OUT:
+                                    System.out.println("OUT");
+                                    sendMsgToActivity(message_Get);
+
+
+                                    break;
+
                                 default:
+                                    System.out.println("default");
                                     break;
                             }
                         }
@@ -251,290 +351,6 @@ public class Socket_service extends Service {
             });
 
             thread.start();
-
-        }
-
-        public static void ListenForInput() throws IOException {
-            Scanner console = new Scanner(System.in);
-            ps = new PrintStream(s.getOutputStream());
-
-            System.out.println("입력하세요");
-            System.out.println("타입");
-
-            while (console.hasNextLine()) {
-                System.out.println("타입");
-
-                String String_time = time();
-
-                String input = console.nextLine();
-
-                if (input.toLowerCase().equals("quit")) {
-                    //나가기
-
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    user = new User_list_item();
-                    user.setId(0);
-                    user.setUser_name("user_name_1");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro");
-                    userlist.add(user);
-
-                    Message message = new Message();
-                    message.setUserInfoArrayList(userlist);
-                    message.setType(MessageType.DISCONNECT);
-                    String tmp_messagesString = gson.toJson(message);
-                    System.out.println("보내는 데이터 : " + tmp_messagesString);
-                    ps.println(tmp_messagesString);
-                    break;
-                }
-
-                if (input.toLowerCase().equals("join")) {
-                    s = new Socket();
-                    SocketAddress endpoint = new InetSocketAddress("192.168.56.1", 12345);
-                    s.connect(endpoint, 5 * 1000);
-
-                    br = new BufferedReader(new InputStreamReader(s.getInputStream(), "utf-8"));
-                    ps = new PrintStream(s.getOutputStream());
-
-
-                    Message message = new Message();
-
-                    String_time = time();
-
-
-                    user = new User_list_item();
-                    user.setId(0);
-                    user.setUser_name("user_name_1");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro");
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    userlist.add(user);
-                    message.setUserInfoArrayList(userlist);
-
-                    message.setType(MessageType.CONNECT);
-                    message.setContent(getServerIp());
-
-                    message.setTime(String_time);
-                    String messagesString = gson.toJson(message);
-                    System.out.println("messagesString : " + messagesString);
-                    ps.println(messagesString);
-
-                }
-
-                if (input.toLowerCase().equals("change room")) {
-                    System.out.println("변경할 룸");
-                    String input_ch = console.nextLine();
-
-                    Message message = new Message();
-                    message.setContent(input_ch);
-
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    user = new User_list_item();
-                    user.setId(0);
-                    user.setUser_name("user_name_1");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro");
-                    userlist.add(user);
-                    message.setUserInfoArrayList(userlist);
-
-                    message.setTime(time());
-                    message.setRoom_Id(Integer.parseInt(input_ch));
-
-
-                    message.setType(MessageType.CHANGE);
-                    String tmp_messagesString = gson.toJson(message);
-                    System.out.println("보내는 데이터 : " + tmp_messagesString);
-                    ps.println(tmp_messagesString);
-
-                    room_id = Integer.parseInt(input_ch);
-                    System.out.println("방 변경 : " + room_id);
-
-
-                }
-                if (input.toLowerCase().equals("user list")) {
-                    Message message = null;
-                    message = new Message();
-
-
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    user = new User_list_item();
-                    user.setId(0);
-                    user.setUser_name("user_name_1");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro");
-                    userlist.add(user);
-                    message.setUserInfoArrayList(userlist);
-
-                    message.setContent(input);
-                    message.setType(MessageType.USERLIST);
-                    String tmp_messagesString = gson.toJson(message);
-                    System.out.println("보내는 데이터 : " + tmp_messagesString);
-                    ps.println(tmp_messagesString);
-                }
-
-                if (input.toLowerCase().equals("room list")) {
-                    Message message = null;
-                    message = new Message();
-
-
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    userlist.add(user);
-                    message.setUserInfoArrayList(userlist);
-
-                    message.setContent(input);
-                    message.setType(MessageType.ROOMLIST);
-                    String tmp_messagesString = gson.toJson(message);
-                    System.out.println("보내는 데이터 : " + tmp_messagesString);
-                    ps.println(tmp_messagesString);
-                }
-
-                if (input.toLowerCase().equals("msg")) {
-                    //그냥 말하기
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    user = new User_list_item();
-                    user.setId(0);
-                    user.setUser_name("user_name_1");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro");
-                    userlist.add(user);
-
-//                System.out.println("보내는 방번호");
-//                String input_from = console.nextLine();
-//                System.out.println("받는 방 번호");
-//                String input_to = console.nextLine();
-                    System.out.println("보낼 내용");
-                    String input_content = console.nextLine();
-
-                    Message message = new Message();
-                    message.setFrom(String.valueOf(room_id));
-//                message.setTo(input_to);
-                    message.setTo(String.valueOf(room_id));
-                    message.setTime(String_time);
-                    message.setContent(input_content);
-                    message.setUserInfoArrayList(userlist);
-                    message.setType(MessageType.MSG);
-                    String tmp_messagesString = gson.toJson(message);
-                    System.out.println("보내는 데이터 : " + tmp_messagesString);
-                    ps.println(tmp_messagesString);
-                }
-
-                if (input.toLowerCase().equals("create room")) {
-                    //방 생성
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    user = new User_list_item();
-                    user.setId(0);
-                    user.setUser_name("user_name_1");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro");
-                    userlist.add(user);
-
-                    user = new User_list_item();
-                    user.setId(2);
-                    user.setUser_name("user_name_2");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro_2");
-                    userlist.add(user);
-
-                    user = new User_list_item();
-                    user.setId(3);
-                    user.setUser_name("user_name_3");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro_3");
-                    userlist.add(user);
-
-                    user = new User_list_item();
-                    user.setId(4);
-                    user.setUser_name("user_name_4");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro_4");
-                    userlist.add(user);
-
-                    System.out.println("보낼 내용");
-                    String input_content = console.nextLine();
-
-                    Message message = new Message();
-                    message.setFrom(String.valueOf(room_id));
-                    message.setTo(String.valueOf(room_id));
-                    message.setTime(String_time);
-                    message.setContent(input_content);
-                    message.setUserInfoArrayList(userlist);
-                    message.setType(MessageType.CREATEROOM);
-                    String tmp_messagesString = gson.toJson(message);
-                    System.out.println("보내는 데이터 : " + tmp_messagesString);
-                    ps.println(tmp_messagesString);
-                }
-
-                if (input.toLowerCase().equals("invite")) {
-                    //방 초대
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    user = new User_list_item();
-                    user.setId(0);
-                    user.setUser_name("user_name_1");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro");
-                    userlist.add(user);
-
-                    user = new User_list_item();
-                    user.setId(7);
-                    user.setUser_name("user_name_7");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro_7");
-                    userlist.add(user);
-
-                    System.out.println("보낼 내용");
-                    String input_content = console.nextLine();
-
-                    Message message = new Message();
-                    message.setFrom(String.valueOf(room_id));
-                    message.setTo(String.valueOf(room_id));
-                    message.setTime(String_time);
-                    message.setContent(input_content);
-                    message.setUserInfoArrayList(userlist);
-                    message.setType(MessageType.INVITE);
-                    String tmp_messagesString = gson.toJson(message);
-                    System.out.println("보내는 데이터 : " + tmp_messagesString);
-                    ps.println(tmp_messagesString);
-                }
-
-
-                if (input.toLowerCase().equals("out")) {
-                    //방 초대
-                    ArrayList<User_list_item> userlist = new ArrayList<>();
-                    user = new User_list_item();
-                    user.setId(0);
-                    user.setUser_name("user_name_1");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro");
-                    userlist.add(user);
-
-                    user = new User_list_item();
-                    user.setId(7);
-                    user.setUser_name("user_name_7");
-                    user.setUser_img("basic.jpg");
-                    user.setUser_intro("user_intro_7");
-                    userlist.add(user);
-
-                    System.out.println("보낼 내용");
-                    String input_content = console.nextLine();
-
-                    Message message = new Message();
-                    message.setFrom(String.valueOf(room_id));
-                    message.setTo(String.valueOf(room_id));
-                    message.setTime(String_time);
-                    message.setContent(input_content);
-                    message.setUserInfoArrayList(userlist);
-                    message.setType(MessageType.OUT);
-                    String tmp_messagesString = gson.toJson(message);
-                    System.out.println("보내는 데이터 : " + tmp_messagesString);
-                    ps.println(tmp_messagesString);
-                }
-            }
-
-            try {
-                Thread.sleep(1L);
-            } catch (InterruptedException var3) {
-                var3.printStackTrace();
-            }
 
         }
 
@@ -554,6 +370,8 @@ public class Socket_service extends Service {
                         System.out.println("FAIL");
                         break;
 
+                    case VIDEO:
+                    case IMG:
                     case MSG:
                         System.out.println("MSG");
 
@@ -563,10 +381,20 @@ public class Socket_service extends Service {
 
                         break;
 
+                    case CREATEROOM:
+
+                        System.out.println("CREATEROOM");
+                        String tmp_create_string = gson.toJson(message_get);
+                        System.out.println("보내는 데이터 : " + tmp_create_string);
+                        ps.println(tmp_create_string);
+
+                        break;
+
                     case USERLIST:
                         System.out.println("USERLIST");
 
                         break;
+
                     case NOTIFICATION:
                         System.out.println("NOTIFICATION");
 
@@ -576,25 +404,36 @@ public class Socket_service extends Service {
                         System.out.println("ROOMLIST");
 
                         String msg_room_list = gson.toJson(message_get);
-                        System.out.println("보내는 데이터 : " + msg_room_list);
+                        System.out.println("서버로 보내는 데이터 : " + msg_room_list);
                         ps.println(msg_room_list);
 
                         break;
 
                     case OUT:
                         System.out.println("OUT");
-
+                        String tmp_create_string_ = gson.toJson(message_get);
+                        System.out.println("보내는 데이터 : " + tmp_create_string_);
+                        ps.println(tmp_create_string_);
                         break;
-
 
 
                     case INVITE:
                         System.out.println("INVITE");
+                        String tmp_create_string__ = gson.toJson(message_get);
+                        System.out.println("보내는 데이터 : " + tmp_create_string__);
+                        ps.println(tmp_create_string__);
+                        break;
+
+                    case CHANGE:
+                        System.out.println("CHANGE");
+                        room_id = message_get.getRoom_Id();
+                        String ch_messagesString = gson.toJson(message_get);
+                        ps.println(ch_messagesString);
 
                         break;
 
                     default:
-
+                        System.out.println("default");
                         break;
                 }
             }
@@ -625,7 +464,7 @@ public class Socket_service extends Service {
 
             Room_list = new ArrayList<>();
 
-            System.out.println("룸 리스트 받기");
+            System.out.println("read_room_list / 룸 리스트 받기");
 
             System.out.println("ms.getRoom_list().size() : " + ms.getRoom_list().size());
 
@@ -645,12 +484,12 @@ public class Socket_service extends Service {
                 for(int j=0; j<ms.getRoom_list().get(i).getUser_list_itemArrayList().size(); j++) {
 
 //                    System.out.println("j : "+j);
-//                    System.out.println("roomArrayList.get(i).getRoom_user_list().size()"+ms.getRoom_list().get(j).getUser_list_itemArrayList().size());
+//                    System.out.println("roomArrayList.get(i).getRoom_user_list().size()"+ms.getRoom_list().get(i).getUser_list_itemArrayList().size());
 
-                    int tmp_id = ms.getRoom_list().get(j).getUser_list_itemArrayList().get(j).getId();
-                    String tmp_name = ms.getRoom_list().get(j).getUser_list_itemArrayList().get(j).getUser_name();
-                    String tmp_profie = ms.getRoom_list().get(j).getUser_list_itemArrayList().get(j).getUser_intro();
-                    String tmp_img = ms.getRoom_list().get(j).getUser_list_itemArrayList().get(j).getUser_img();
+                    int tmp_id = ms.getRoom_list().get(i).getUser_list_itemArrayList().get(j).getId();
+                    String tmp_name = ms.getRoom_list().get(i).getUser_list_itemArrayList().get(j).getUser_name();
+                    String tmp_profie = ms.getRoom_list().get(i).getUser_list_itemArrayList().get(j).getUser_intro();
+                    String tmp_img = ms.getRoom_list().get(i).getUser_list_itemArrayList().get(j).getUser_img();
 
                     User_list_item tmp_user = new User_list_item();
                     tmp_user.setUser_name(tmp_name);
@@ -670,8 +509,118 @@ public class Socket_service extends Service {
 
             System.out.println(TAG+"Room_list end");
             System.out.println(TAG+"Room_list size : "+Room_list.size());
+
         }
+
+
         }
-private static final String TAG = Socket_service.class.getName()+" : ";
+
+
+    /** activity로부터 binding 된 Messenger */
+    public static Messenger mMessenger = new Messenger(new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(android.os.Message msg) {
+            //엑티비티 와 서비스 핸들러 연결
+            if (msg.what != 0) {
+                System.out.println("액티비티와 바인더 연결 방번호 : "+ msg.what);
+                mClient = msg.replyTo;  // activity로부터 가져온
+                room_id = msg.what;
+            } else {
+                //if room_id == 0 일때만
+                room_id = 0;
+                System.out.println("액티비티와 바인더 연결 채팅방 목록 ");
+                mClient = msg.replyTo;  // activity로부터 가져온
+            }
+            return false;
+        }
+    }));
+
+
+    public static void sendMsgToActivity(Message message) {
+        System.out.println("sendMsgToActivity");
+        Bundle bundle = new Bundle();
+        String messagesString = gson.toJson(message);
+        bundle.putString("msg",messagesString);
+        android.os.Message msg = android.os.Message.obtain(null, 0);
+        msg.setData(bundle);
+        System.out.println("sendMsgToActivity mClient send(msg) try");
+        try {
+            mClient.send(msg);      // msg 보내기
+        } catch (RemoteException e) {
+
+        }
     }
 
+    public static void send_msg_to_notification(Message message) {
+
+//        if(!str.equals("OK")){
+//           return;
+//        }
+
+        System.out.println("send_msg_to_notification");
+        Bundle bundle = new Bundle();
+        String messagesString = gson.toJson(message);
+        bundle.putString("msg",messagesString);
+        android.os.Message msg = android.os.Message.obtain(null, 0);
+        msg.setData(bundle);
+        System.out.println("send_msg_to_notification mClient send(msg) try");
+        //노티피케이션 핸들러에 메시지 보내기
+        handler.sendMessage(msg);     // msg 보내기
+    }
+
+
+
+    class myServiceHandler extends Handler {
+
+        @Override
+        public void handleMessage(android.os.Message msg) {
+
+            System.out.println("handleMessage");
+
+            String revString = msg.getData().getString("msg");
+            Message message_Get = gson.fromJson(revString, Message.class);
+
+            Intent intent = new Intent(Socket_service.this, Activity_chat_room.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("id",message_Get.getRoom_Id() ); //전달할 값
+            PendingIntent pendingIntent = PendingIntent.getActivity(Socket_service.this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(Socket_service.this, String.valueOf(message_Get.getRoom_Id()))
+                    .setSmallIcon(R.drawable.ic_baseline_games_24)  // 작은 아이콘
+                    .setContentTitle("War3 App")  // 제목
+                    .setContentText(message_Get.getUserInfoArrayList().get(0).getUser_name()+"님의 메시지가 왔습니다.")  // 본문 텍스트
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)  // 알림 우선순위
+
+                    //위에서 생성한 intent 사용해서 작성
+                    .setContentIntent(pendingIntent) //알림의 탭 작업 설정
+                    .setAutoCancel(true); // 사용자가 탭하면 자동으로 알림을 삭제
+
+            //OREO API 26 이상에서는 채널 필요
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                System.out.println("OREO API 26");
+
+                CharSequence channelName  = "channelName";
+
+                String description = "오레오 이상을 위한 채널설정";
+                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+                //노티피케이션에 체널 및 체널 이름 등을 설정해줌.
+                //메시지의 룸 아이디 값을 체널ID로 설정
+                NotificationChannel channel = new NotificationChannel(String.valueOf(message_Get.getRoom_Id()), channelName , importance);
+                channel.setDescription(description);
+
+                // 노티피케이션 채널을 시스템에 등록
+                assert Notifi_M != null;
+                Notifi_M.createNotificationChannel(channel);
+
+            }else builder.setSmallIcon(R.mipmap.ic_launcher); // Oreo 이하에서 mipmap 사용하지 않으면 Couldn't create icon: StatusBarIcon 에러남
+
+            //알림 진짜 띄우게 하는거 (알림 표시)
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+            notificationManager.notify(message_Get.getRoom_Id(), builder.build()); // 앞에숫자 : 고유 아이디 입력
+
+        }
+
+
+    };
+
+    }

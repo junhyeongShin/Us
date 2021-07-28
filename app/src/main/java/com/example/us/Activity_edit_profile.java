@@ -92,6 +92,11 @@ public class Activity_edit_profile extends AppCompatActivity {
                                     TextView_edit_profile_name.setText("닉네임 : "+user_name);
 
                                     TextView TextView_edit_profile_detail = findViewById(R.id.TextView_edit_profile_detail);
+
+                                    if(user_intro==null){
+                                        user_intro = "";
+                                    }
+
                                     TextView_edit_profile_detail.setText("소개 : "+user_intro);
 
                                     //이미지 부분 json 파싱된 uri를 이용해 이미지 표시
@@ -338,7 +343,6 @@ public class Activity_edit_profile extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             System.out.println(TAG+" : thread_url.join()");
-
 
                         } catch (JSONException e) {
                             // JSON error

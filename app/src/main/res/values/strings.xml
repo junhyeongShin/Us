@@ -5,10 +5,19 @@
     <!--        <string name="server_url">"13.125.205.208"</string>-->
 
     <string-array name="spinner_category">
+        <item>전체</item>
         <item>파오캐</item>
         <item>카오스</item>
         <item>원랜디</item>
-        <item>뿔레전쟁</item>
+        <item>뿔레</item>
+        <item>기타</item>
+    </string-array>
+
+    <string-array name="spinner_category_add">
+        <item>파오캐</item>
+        <item>카오스</item>
+        <item>원랜디</item>
+        <item>뿔레</item>
         <item>기타</item>
     </string-array>
 

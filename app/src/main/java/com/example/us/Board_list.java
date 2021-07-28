@@ -26,11 +26,19 @@ public class Board_list {
     private String user_intro;
     @SerializedName("img_profile")
     private String user_img;
+    @SerializedName("img_url")
+    private String img_url;
     @SerializedName("username")
     private String user_name;
 
 
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
 
+    public String getImg_url() {
+        return img_url;
+    }
 
     public String getUser_intro() {
         return user_intro;

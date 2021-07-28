@@ -27,6 +27,10 @@ public class ImageLoadTask extends AsyncTask<Void,Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(Void... voids) {
         Bitmap bitmap = null;
+        if(urlStr==null){
+            urlStr = "basic_img.png";
+        }
+
         try {
             if (bitmapHash.containsKey(urlStr)) {
                 Bitmap oldbitmap = bitmapHash.remove(urlStr);

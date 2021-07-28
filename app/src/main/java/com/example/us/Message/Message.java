@@ -3,6 +3,7 @@ package com.example.us.Message;
 import com.example.us.Room;
 import com.example.us.Room_item;
 import com.example.us.User_list_item;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,16 @@ public class Message {
 
 	private ArrayList<Room_item> room_list;
 
+	private ArrayList<Message> msg_list;
+
+	public void setMsg_list(ArrayList<Message> msg_list) {
+		this.msg_list = msg_list;
+	}
+
+	public ArrayList<Message> getMsg_list() {
+		return msg_list;
+	}
+
 	public ArrayList<Room_item> getRoom_list() {
 		return room_list;
 	}
@@ -42,6 +53,10 @@ public class Message {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public void setUserInfoArrayList(ArrayList<User_list_item> userInfoArrayList) {
@@ -92,6 +107,7 @@ public class Message {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 
 
 

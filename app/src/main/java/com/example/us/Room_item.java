@@ -4,11 +4,20 @@ import com.example.us.Message.Message;
 
 import java.util.ArrayList;
 
-public class Room_item {
+public class Room_item implements Comparable<Room_item> {
     int id;
     String title;
     Message last_message;
     ArrayList<User_list_item> user_list_itemArrayList;
+    boolean alarm;
+
+    public void setAlarm(boolean alarm) {
+        this.alarm = alarm;
+    }
+
+    public boolean getAlarm(){
+        return alarm;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -40,5 +49,16 @@ public class Room_item {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public int compareTo(Room_item o) {
+
+        String tmp_ = this.getLast_message().getTime();
+        String tmp_2 = o.getLast_message().getTime();
+        int compare = tmp_2.compareTo(tmp_);
+
+        return compare;
+
     }
 }

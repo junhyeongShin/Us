@@ -10,6 +10,7 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import retrofit2.Call;
@@ -28,6 +29,17 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Activity_board extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        try {
+            retrofit_api();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private static final String TAG = "Activity_board / ";
 
@@ -37,7 +49,8 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         finishActivity(0);
     }
 
-    String category_selected = "파오캐";
+    String category_selected = "전체";
+
 
     private ArrayList<Board_list> board_list_recycler = new ArrayList<>();
     private ArrayList<Board_list> board_list_recycler_search = new ArrayList<>();
@@ -80,8 +93,8 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         });
 
 
-        Button btn_write_board = findViewById(R.id.btn_write_board);
-        btn_write_board.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab_add_board = findViewById(R.id.fab_add_board);
+        fab_add_board.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(getApplicationContext(), Activity_board_add.class);
@@ -89,6 +102,7 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
 
             }
         });
+
 
 
         //하단 네비게이션바 버튼
@@ -145,66 +159,47 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         // 하단에 '+ 아이템 추가하기' 텍스트뷰 - 눌렀을 때 아이템 추가되는 기능 구현
         RecyclerView_main = findViewById(R.id.recyclerview_board);
 
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         RecyclerView_main.setLayoutManager(linearLayoutManager);
 
         try {
-            retrofit_api("all");
+            retrofit_api();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+//        전체 인기순 버튼 주석 처리
 
-        Button btn_all_board = findViewById(R.id.btn_all_board);
-        btn_all_board.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println(TAG+"-btn_all_board- : onclick");
-
-                try {
-                    retrofit_api("all");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(TAG+"retrofit_api(all)");
-
-                init(board_list_recycler);
-            }
-        });
-
-        Button btn_all_views = findViewById(R.id.btn_all_views);
-        btn_all_views.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                System.out.println(TAG+"-btn_all_views- : onclick");
-
-                try {
-                    retrofit_api("views");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(TAG+"retrofit_api(views)");
-
-
-
-            }
-        });
-
-//        Button btn_all_favorites = findViewById(R.id.btn_all_favorites);
-//        btn_all_favorites.setOnClickListener(new View.OnClickListener() {
+//        Button btn_all_board = findViewById(R.id.btn_all_board);
+//        btn_all_board.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//
-//                System.out.println(TAG+"-btn_all_favorites- : onclick");
-//                //TODO:즐겨찾기
+//                System.out.println(TAG+"-btn_all_board- : onclick");
 //
 //                try {
-//                    retrofit_api("favorites");
+//                    retrofit_api("all");
 //                } catch (UnsupportedEncodingException e) {
 //                    e.printStackTrace();
 //                }
-//                System.out.println(TAG+"retrofit_api(favorites)");
+//                System.out.println(TAG+"retrofit_api(all)");
+//
+//                init(board_list_recycler);
+//            }
+//        });
+//
+//        Button btn_all_views = findViewById(R.id.btn_all_views);
+//        btn_all_views.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                System.out.println(TAG+"-btn_all_views- : onclick");
+//
+//                try {
+//                    retrofit_api("views");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.println(TAG+"retrofit_api(views)");
+//
 //
 //
 //            }
@@ -215,7 +210,7 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
 
 
 
-    private void retrofit_api(String request_list) throws UnsupportedEncodingException {
+    private void retrofit_api() throws UnsupportedEncodingException {
 
         System.out.println(TAG+" - retrofit_api : start");
         System.out.println(TAG+" - retrofit_api_url : "+server_info.getInstance().getURL());
@@ -231,7 +226,48 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
 
         Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);
 
-        retrofit_api.getData_board(user_info.getInstance().getUser_index_number(), category_selected,request_list).enqueue(new Callback<List<Board_list>>() {
+        retrofit_api.getData_board_all().enqueue(new Callback<List<Board_list>>() {
+            @Override
+            public void onResponse(Call<List<Board_list>> call, Response<List<Board_list>> response) {
+                System.out.println("onResponse : call"+call);
+                System.out.println("onResponse : response"+response);
+                if(response.isSuccessful()){
+                    List<Board_list> board_list = response.body();
+                    System.out.println("성공");
+
+                    board_list_recycler = (ArrayList<Board_list>) board_list;
+
+                    init(board_list_recycler);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Board_list>> call, Throwable t) {
+                System.out.println("실패 Throwable : "+t.toString());
+                System.out.println("실패 call : "+call.toString());
+            }
+        });
+
+    }
+
+    private void retrofit_api_category(String category_selected) throws UnsupportedEncodingException {
+
+        System.out.println(TAG+" - retrofit_api : start");
+        System.out.println(TAG+" - retrofit_api_url : "+server_info.getInstance().getURL());
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(server_info.getInstance().getURL())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        Retrofit_api retrofit_api = retrofit.create(Retrofit_api.class);
+
+        retrofit_api.getData_board_category(category_selected).enqueue(new Callback<List<Board_list>>() {
             @Override
             public void onResponse(Call<List<Board_list>> call, Response<List<Board_list>> response) {
                 System.out.println("onResponse : call"+call);
@@ -302,38 +338,45 @@ public class Activity_board extends AppCompatActivity implements AdapterView.OnI
         // 3 : 뿔레전쟁
         // 4 : 기타
 
-        if(id==0){
-            category_selected = "파오캐";
+        if(id==0) {
+            category_selected = "전체";
             try {
-                retrofit_api("all");
+                retrofit_api();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-        }else if(id==1){
-            category_selected = "카오스";
+        } else if(id==1){
+            category_selected = "파오캐";
             try {
-                retrofit_api("all");
+                retrofit_api_category(category_selected);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }else if(id==2){
-            category_selected = "원랜디";
+            category_selected = "카오스";
             try {
-                retrofit_api("all");
+                retrofit_api_category(category_selected);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }else if(id==3){
-            category_selected = "뿔레";
+            category_selected = "원랜디";
             try {
-                retrofit_api("all");
+                retrofit_api_category(category_selected);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-        }else if(id==4) {
+        }else if(id==4){
+            category_selected = "뿔레";
+            try {
+                retrofit_api_category(category_selected);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }else if(id==5) {
             category_selected = "기타";
             try {
-                retrofit_api("all");
+                retrofit_api_category(category_selected);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

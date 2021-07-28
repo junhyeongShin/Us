@@ -21,10 +21,17 @@ public class re_comment {
     @SerializedName("content")
     private String content;
 
-    @SerializedName("img_profile")
-    private int img_profile;
+    @SerializedName("img_path")
+    private String img_url;
 
-//    @SerializedName("create_time")
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+
+    public String getImg_url() {
+        return img_url;
+    }
+    //    @SerializedName("create_time")
 //    private Date create_time;
 
     public String getUsername() {

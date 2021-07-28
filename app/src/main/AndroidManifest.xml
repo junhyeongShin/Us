@@ -18,13 +18,39 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".Activity_chat_room">
+        <activity android:name=".Activity_alarm">
+        </activity>
+        <activity android:name=".Activity_my_comment">
+        </activity>
+        <activity android:name=".Activity_my_board">
+        </activity>
+        <activity
+                android:name=".Activity_streaming_view"
+                android:configChanges="screenSize|orientation"
+                android:screenOrientation="sensor">
+        </activity>
+        <activity android:name=".Activity_streaming_list">
+        </activity>
+        <activity android:name=".Activity_friends_list_for_invite">
+        </activity>
+        <activity android:name=".ImgViewActivity">
+        </activity>
+        <activity android:name=".Activity_freinds_list_for_chat">
+        </activity>
+        <activity
+                android:name=".Activity_chat_room"
+                android:launchMode="singleInstance">
         </activity>
 
-        <service
-                android:name=".Message_service"
-                android:enabled="true"
-                android:exported="true">
+<!--        <service-->
+<!--                android:name=".Message_service"-->
+<!--                android:enabled="true"-->
+<!--                android:exported="true">-->
+<!--        </service>-->
+        <service  android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
         </service>
         <service
                 android:name=".Socket_service"
@@ -32,8 +58,8 @@
                 android:exported="true">
         </service>
 
-        <activity android:name=".Activity_clan_member_view">
-        </activity>
+<!--        <activity android:name=".Activity_clan_member_view">-->
+<!--        </activity>-->
         <activity android:name=".Activity_clan_join_list">
         </activity>
         <activity android:name=".Activity_clan">

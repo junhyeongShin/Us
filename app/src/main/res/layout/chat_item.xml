@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+>
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:paddingVertical="5dp"
+                  android:paddingHorizontal="15dp"
+                  android:id="@+id/chat_center_item"
+                  android:background="@drawable/background_chat_sub_bar2"
+                  android:orientation="horizontal">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/chat_center_txt"
+                      android:textSize="18sp"
+                      android:textColor="#ffffff"
+                      android:text="asdfasdf"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/chat_left_item"
+                  android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView android:layout_width="40dp" android:layout_height="40dp"
+                                                      android:id="@+id/chat_left_img"
+                                                      android:layout_gravity="center_vertical"
+                                                      android:src="@drawable/basic_img"/>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+        >
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/chat_left_name"
+                      android:textSize="16sp"
+                      android:maxLines="1"
+                      android:textColor="#000000"
+                      android:text="asdfasdf"
+            />
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:paddingVertical="10dp"
+                          android:paddingHorizontal="20dp"
+                          android:id="@+id/chat_box_left"
+                          android:background="@drawable/left"
+            >
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/chat_left_txt"
+                      android:textSize="18sp"
+                      android:textColor="#000000"
+                      android:text="asdfasdf"
+
+            />
+
+
+            </LinearLayout>
+            <ImageView android:layout_width="350dp" android:layout_height="350dp"
+                       android:scaleType="fitXY"
+                        android:id="@+id/imageView_chat_room_left"
+                       android:visibility="gone"
+            />
+            <com.google.android.exoplayer2.ui.PlayerView android:layout_width="350dp" android:layout_height="300dp"
+                        android:id="@+id/videoView_chat_room_left"
+                       android:visibility="gone"
+            />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/chat_left_time"
+                      android:textSize="14sp"
+                      android:maxLines="1"
+                      android:textColor="#000000"
+                      android:text="2020/09/10:23"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="right"
+                  android:id="@+id/chat_right_item"
+                  android:orientation="horizontal">
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+        >
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:paddingVertical="10dp"
+                          android:paddingHorizontal="20dp"
+                          android:background="@drawable/right"
+                          android:id="@+id/chat_box_right"
+
+            >
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/chat_right_txt"
+                          android:textSize="18sp"
+                          android:textColor="#000000"
+                          android:text="asdfasdf"
+
+                />
+
+
+            </LinearLayout>
+                <ImageView android:layout_width="350dp" android:layout_height="350dp"
+                           android:scaleType="fitXY"
+                           android:id="@+id/imageView_chat_room_right"
+                           android:visibility="gone"
+                />
+                <com.google.android.exoplayer2.ui.PlayerView android:layout_width="350dp" android:layout_height="300dp"
+                           android:id="@+id/videoView_chat_room_right"
+                           android:visibility="gone"
+                />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/chat_right_time"
+                      android:textSize="14sp"
+                      android:maxLines="1"
+                      android:textColor="#000000"
+                      android:text="2020/09/10:23"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

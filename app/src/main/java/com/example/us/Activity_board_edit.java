@@ -73,7 +73,7 @@ public class Activity_board_edit extends AppCompatActivity implements AdapterVie
             id_category = 1;
         } else if (category_selected.equals("디펜스")) {
             id_category = 2;
-        } else if (category_selected.equals("뿔레전쟁")) {
+        } else if (category_selected.equals("뿔레")) {
             id_category = 3;
         } else if (category_selected.equals("기타")) {
             id_category = 4;
@@ -82,7 +82,7 @@ public class Activity_board_edit extends AppCompatActivity implements AdapterVie
 
         Spinner spinner_board_edit_category = findViewById(R.id.spinner_board_edit_category);
         ArrayAdapter<CharSequence> adapter_spinner = ArrayAdapter.createFromResource(this,
-                R.array.spinner_category, R.layout.spinner_item_category);
+                R.array.spinner_category_add, R.layout.spinner_item_category);
         adapter_spinner.setDropDownViewResource(R.layout.spinner_dropdown_category);
         spinner_board_edit_category.setAdapter(adapter_spinner);
         spinner_board_edit_category.setOnItemSelectedListener(this);

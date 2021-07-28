@@ -17,11 +17,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.us.*;
+import com.example.us.wowza.live_stream_list;
+import com.example.us.wowza.live_streams;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceIdReceiver;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -30,9 +46,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+//import com.google.firebase.iid.FirebaseInstanceId;
+
 public class Login extends AppCompatActivity {
 
 
@@ -60,8 +76,6 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        Toast.makeText(this.getApplicationContext(), "테스트",Toast.LENGTH_SHORT).show();
 
         btn_login = findViewById(R.id.btn_login);//로그인버튼
         btn_signup = findViewById(R.id.btn_signup);//회원가입 버튼
@@ -137,6 +151,22 @@ public class Login extends AppCompatActivity {
         });
 
         System.out.println("http_post");
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<String> task) {
+                        if(!task.isSuccessful()){
+                            System.out.println("실패 : task :"+task.getException());
+                            return;
+                        }
+
+                        String token = task.getResult();
+
+                        System.out.println("token : "+token);
+                    }
+                });
+
     }
 
 
@@ -208,10 +238,6 @@ public class Login extends AppCompatActivity {
 
 
                     if(json_chek_login.equals("OK")){
-
-
-
-
 
                         check = true;
                         System.out.println("로그인 성공");

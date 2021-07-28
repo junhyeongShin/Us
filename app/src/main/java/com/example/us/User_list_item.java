@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class User_list_item {
 
-    @SerializedName("index")
+    @SerializedName("id")
     private int id;
 
     @SerializedName("username")
@@ -21,10 +21,10 @@ public class User_list_item {
 
     public User_list_item(int id,String username, String profile_intro, String img_path){
         super();
-        id = this.id;
-        username = this.user_name;
-        profile_intro = this.user_intro;
-        img_path = this.user_img;
+        this.id = id;
+        this.user_name = username;
+        this.user_intro = profile_intro;
+        this.user_img =img_path;
     }
 
     public User_list_item(){
@@ -62,4 +62,5 @@ public class User_list_item {
     public int getId() {
         return id;
     }
+
 }

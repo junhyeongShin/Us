@@ -52,14 +52,11 @@ public class clan_list_adapter  extends RecyclerView.Adapter<clan_list_adapter.V
             @Override
             public void onClick(View v) {
                 System.out.println(TAG+" 아이템 클릭 ");
+            //TODO : 이거 하고 시작해야한다. 서버에서 불러오는데 오류 남
 
-                Intent mIntent = new Intent(context, Activity_clan_view.class);
-                mIntent.putExtra("id",Items.get(position).getId());
-                mIntent.putExtra("title",Items.get(position).getTitle());
-                mIntent.putExtra("img",Items.get(position).getClan_img());
-                mIntent.putExtra("master",Items.get(position).getMaster());
-                mIntent.putExtra("intro",Items.get(position).getClan_introduce());
-                context.startActivity(mIntent);
+//                Intent mIntent = new Intent(context, Activity_clan_view.class);
+//                mIntent.putExtra("id",Items.get(position).getId());
+//                context.startActivity(mIntent);
 
             }
         });

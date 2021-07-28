@@ -411,6 +411,7 @@ public class Post_to_server {
             // Set some headers to inform server about the type of the content
             httpCon.setRequestProperty("Accept", "application/json");
             httpCon.setRequestProperty("Content-type", "application/json");
+            httpCon.setRequestProperty("charset","utf-8");
 
             // OutputStream으로 POST 데이터를 넘겨주겠다는 옵션.
             httpCon.setDoOutput(true);
@@ -419,11 +420,12 @@ public class Post_to_server {
             httpCon.setDoInput(true);
 
             OutputStream os = httpCon.getOutputStream();
-            os.write(json.getBytes("euc-kr"));
+            os.write(json.getBytes(StandardCharsets.UTF_8));
             os.flush();
 
             // receive response as inputStream
             // http 연결 후 입력받은 json 데이터 판별
+
             try {
                 Post_is = httpCon.getInputStream();
                 // convert inputstream to string
